@@ -35,8 +35,16 @@ function enable() {
         return Clutter.EVENT_STOP;
     };
 
+    Main.wm._handleTouchpadGesture = function(action, direction) {
+        if (direction == Meta.MotionDirection.DOWN || direction == Meta.MotionDirection.UP) {
+            Main.wm._actionSwitchWorkspace(action, direction);
+        } else {
+            Main.overview.toggle();
+        }
+    }
+
     var gesture = new WindowManager.TouchpadWorkspaceSwitchAction(global.stage);
-    gesture.connect('activated', Lang.bind(Main.wm, Main.wm._actionSwitchWorkspace));
+    gesture.connect('activated', Lang.bind(Main.wm, Main.wm._handleTouchpadGesture));
 }
 
 function disable() {
