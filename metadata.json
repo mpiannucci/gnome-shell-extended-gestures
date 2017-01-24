@@ -1,1 +1,6 @@
-{"name": "Extended Gestures", "description": "Adds more touchpad gestures into gnome-shell", "uuid": "extendedgestures@mpiannucci.github.com", "shell-version": ["3.22"]}
+{
+    "name": "Extended Gestures", 
+    "description": "Adds more touchpad gestures into gnome-shell", 
+    "uuid": "extendedgestures@mpiannucci.github.com", 
+    "shell-version": ["3.22"]
+}
