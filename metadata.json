@@ -1,6 +1,9 @@
 {
     "name": "Extended Gestures", 
-    "description": "Adds more touchpad gestures into gnome-shell", 
+    "description": "Adds more touchpad gestures into gnome-shell",
+    "url": "https://github.com/mpiannucci/GnomeExtendedGestures",
     "uuid": "extendedgestures@mpiannucci.github.com", 
-    "shell-version": ["3.22"]
+    "shell-version": ["3.22"],
+    "settings-schema": "org.gnome.shell.extensions.extendedgestures",
+    "gettext-domain": "extendedgestures"
 }

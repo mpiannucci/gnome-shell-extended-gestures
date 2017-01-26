@@ -1,11 +1,9 @@
-
 const Clutter = imports.gi.Clutter;
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
 const Signals = imports.signals;
-const WindowManager = imports.ui.windowManager;
 
 let originalHandler = null;
 let gestureHandler = null;
