@@ -1,0 +1,18 @@
+<schemalist gettext-domain="extendedgestures">
+    <enum id="org.gnome.shell.extensions.extendedgestures.actions">
+        <value value="0" nick="overview"/>
+        <value value="1" nick="cycle-apps"/>
+    </enum>
+    <schema id="org.gnome.shell.extensions.extendedgestures" path="/org/gnome/shell/extensions/extendedgestures/">
+        <key name="horizontal-swipes" type="b">
+            <default>true</default>
+            <summary>Horizontal Swipes</summary>
+            <description>If true, horizontal 3 and 4 finger gestures will perform an actions as set by the user</description>
+        </key>
+        <key name="horizontal-action" enum="org.gnome.shell.extensions.extendedgestures.actions">
+            <default>'overview'</default>
+            <summary>Horizontal Swipe Action</summary>
+            <description>The action to perform when a horizontal swipe gesture is recognized</description>
+        </key>
+    </schema>
+</schemalist>
