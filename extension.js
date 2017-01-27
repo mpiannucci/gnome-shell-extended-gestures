@@ -5,9 +5,21 @@ const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
 const Signals = imports.signals;
 
-let originalHandler = null;
+const Gettext = imports.gettext.domain('extendedgestures');
+const _ = Gettext.gettext;
+const Extension = imports.misc.extensionUtils.getCurrentExtension();
+const Convenience = Extension.imports.convenience;
+
+// Our custom gesture handler instance
 let gestureHandler = null;
 let gestureCallbackID = null;
+
+// Our settings
+let schema = null;
+
+function init() {
+    schema = Convenience.getSettings();
+}
 
 const TouchpadGestureAction = new Lang.Class({
     Name: 'TouchpadGestureAction',
@@ -15,7 +27,12 @@ const TouchpadGestureAction = new Lang.Class({
     _init: function(actor) {
         this._dx = 0;
         this._dy = 0;
-        this.gestureCallbackID = actor.connect('captured-event', Lang.bind(this, this._handleEvent));
+        this.horizontalEnabled = schema.get_boolean('horizontal-swipes');
+        this.horizontalAction = schema.get_enum('horizontal-action');
+
+        this._gestureCallbackID = actor.connect('captured-event', Lang.bind(this, this._handleEvent));
+        this._horizontalEnabledCallbackID = schema.connect('changed', Lang.bind(this, this._horizontalEnabledSettingChanged));
+        this._horizontalActionCallbackID = schema.connect('changed', Lang.bind(this, this._horizontalActionSettingChanged));
     },
 
     _checkActivated: function() {
@@ -35,6 +52,9 @@ const TouchpadGestureAction = new Lang.Class({
         else if (this._dx > MOTION_THRESHOLD)
             dir = Meta.MotionDirection.LEFT;
         else
+            return;
+
+        if (!this._checkSwipeValid(dir))
             return;
 
         this.emit('activated', dir);
@@ -63,13 +83,30 @@ const TouchpadGestureAction = new Lang.Class({
         return Clutter.EVENT_STOP;
     },
 
+    _doAction: function (dir) {
+        global.log("TRIGGERED");
+    },
+
+    _checkSwipeValid: function (dir) {
+        if (!this.horizontalEnabled && (dir == Meta.MotionDirection.LEFT || dir == Meta.MotionDirection.RIGHT))
+            return false;
+        return true;
+    },
+
+    _horizontalEnabledSettingChanged: function () {
+        this.horizontalEnabled = schema.get_boolean('horizontal-swipes');
+    },
+
+    _horizontalActionSettingChanged: function () {
+        this.horizontalAction = schema.get_enum('horizontal-action');
+    },
+
     _cleanup: function() {
-        global.stage.disconnect(this.gestureCallbackID);
+        global.stage.disconnect(this._gestureCallbackID);
+        schema.disconnect(this._horizontalEnabledCallbackID);
+        schema.disconnect(this._horizontalActionCallbackID);
     }
 });
-
-function init() {
-}
 
 function enable() {
 
