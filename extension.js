@@ -12,7 +12,7 @@ const Convenience = Extension.imports.convenience;
 
 // Our custom gesture handler instance
 let gestureHandler = null;
-let gestureCallbackID = null;
+//let gestureCallbackID = null;
 
 // Our settings
 let schema = null;
@@ -31,6 +31,7 @@ const TouchpadGestureAction = new Lang.Class({
         this.horizontalAction = schema.get_enum('horizontal-action');
 
         this._gestureCallbackID = actor.connect('captured-event', Lang.bind(this, this._handleEvent));
+        this._testCallbackID = this.connect('activated', Lang.bind (this, this._doAction));
         this._horizontalEnabledCallbackID = schema.connect('changed', Lang.bind(this, this._horizontalEnabledSettingChanged));
         this._horizontalActionCallbackID = schema.connect('changed', Lang.bind(this, this._horizontalActionSettingChanged));
     },
@@ -83,14 +84,31 @@ const TouchpadGestureAction = new Lang.Class({
         return Clutter.EVENT_STOP;
     },
 
-    _doAction: function (dir) {
-        global.log("TRIGGERED");
+    _doAction: function (sender, dir) {
+        if (this._isSwipeHorizontal(dir)) {
+            switch (this.horizontalAction) {
+                case 0:
+                    Main.overview.toggle();
+                    break;
+                case 1:
+                    Main.wm._switchApp();
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            Main.wm._actionSwitchWorkspace(sender, dir);
+        }
     },
 
     _checkSwipeValid: function (dir) {
-        if (!this.horizontalEnabled && (dir == Meta.MotionDirection.LEFT || dir == Meta.MotionDirection.RIGHT))
+        if (!this.horizontalEnabled && this._isSwipeHorizontal(dir))
             return false;
         return true;
+    },
+
+    _isSwipeHorizontal: function (dir) {
+        return dir == Meta.MotionDirection.LEFT || dir == Meta.MotionDirection.RIGHT;
     },
 
     _horizontalEnabledSettingChanged: function () {
@@ -103,30 +121,17 @@ const TouchpadGestureAction = new Lang.Class({
 
     _cleanup: function() {
         global.stage.disconnect(this._gestureCallbackID);
+        this.disconnect(this._testCallbackID);
         schema.disconnect(this._horizontalEnabledCallbackID);
         schema.disconnect(this._horizontalActionCallbackID);
     }
 });
 
 function enable() {
-
-    Main.wm._handleTouchpadGesture = function(action, direction) {
-        if (direction == Meta.MotionDirection.DOWN || direction == Meta.MotionDirection.UP) {
-            Main.wm._actionSwitchWorkspace(action, direction);
-        } else {
-            Main.overview.toggle();
-            //Main.wm._switchApp();
-        }
-    };
-
     Signals.addSignalMethods(TouchpadGestureAction.prototype);
     gestureHandler = new TouchpadGestureAction(global.stage);
-    gestureCallbackID = gestureHandler.connect('activated', Lang.bind(Main.wm, Main.wm._handleTouchpadGesture));
 }
 
 function disable() {
-    // Disconnect our signal and delete the handler
-    gestureHandler.disconnect(gestureCallbackID);
     gestureHandler._cleanup();
-    delete Main.wm._handleTouchpadGesture;
 }
