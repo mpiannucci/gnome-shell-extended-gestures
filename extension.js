@@ -12,7 +12,6 @@ const Convenience = Extension.imports.convenience;
 
 // Our custom gesture handler instance
 let gestureHandler = null;
-//let gestureCallbackID = null;
 
 // Our settings
 let schema = null;
