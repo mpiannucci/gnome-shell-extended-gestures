@@ -26,13 +26,15 @@ const TouchpadGestureAction = new Lang.Class({
     _init: function(actor) {
         this._dx = 0;
         this._dy = 0;
-        this.horizontalEnabled = schema.get_boolean('horizontal-swipes');
-        this.horizontalAction = schema.get_enum('horizontal-action');
+        //this.horizontalEnabled = schema.get_boolean('horizontal-swipes');
+        //this.horizontalAction = schema.get_enum('horizontal-action');
+        this.horizontalEnabled = true;
+        this.horizontalAction = 0;
 
         this._gestureCallbackID = actor.connect('captured-event', Lang.bind(this, this._handleEvent));
-        this._testCallbackID = this.connect('activated', Lang.bind (this, this._doAction));
-        this._horizontalEnabledCallbackID = schema.connect('changed', Lang.bind(this, this._horizontalEnabledSettingChanged));
-        this._horizontalActionCallbackID = schema.connect('changed', Lang.bind(this, this._horizontalActionSettingChanged));
+        this._actionCallbackID = this.connect('activated', Lang.bind (this, this._doAction));
+        //this._horizontalEnabledCallbackID = schema.connect('changed', Lang.bind(this, this._horizontalEnabledSettingChanged));
+        //this._horizontalActionCallbackID = schema.connect('changed', Lang.bind(this, this._horizontalActionSettingChanged));
     },
 
     _checkActivated: function() {
@@ -124,11 +126,11 @@ const TouchpadGestureAction = new Lang.Class({
     },
 
     _horizontalEnabledSettingChanged: function () {
-        this.horizontalEnabled = schema.get_boolean('horizontal-swipes');
+        //this.horizontalEnabled = schema.get_boolean('horizontal-swipes');
     },
 
     _horizontalActionSettingChanged: function () {
-        this.horizontalAction = schema.get_enum('horizontal-action');
+        //this.horizontalAction = schema.get_enum('horizontal-action');
     },
 
     _switchApp: function (dir) {
@@ -166,7 +168,7 @@ const TouchpadGestureAction = new Lang.Class({
 
     _cleanup: function() {
         global.stage.disconnect(this._gestureCallbackID);
-        this.disconnect(this._testCallbackID);
+        this.disconnect(this._actionCallbackID);
         schema.disconnect(this._horizontalEnabledCallbackID);
         schema.disconnect(this._horizontalActionCallbackID);
     }

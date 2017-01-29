@@ -17,49 +17,82 @@ function init() {
 const ExtendedGesturesSettingsWidget = new GObject.Class({
     Name: 'ExtendedGestures.prefs.ExtendedGesturesSettingsWidget',
     GTypeName: 'ExtendedGesturesSettingsWidget',
-    Extends: Gtk.Grid,
+    Extends: Gtk.VBox,
 
-    _init: function(params) {
-        this.parent(params);
-        this.row_spacing = 6;
-        this.column_spacing = 6;
-        this.margin_left = 6;
-        this.margin_right = 6;
-        this.margin_top = 6;
-        this.margin_bottom = 6;
-        this.orientation = Gtk.Orientation.VERTICAL;
+    _init: function (params) {
+        this.parent (params);
 
-        this._horizontalSwitchLabel = new Gtk.Label ({label: "Horizontal Swipes"});
-        this.add(this._horizontalSwitchLabel);
+        let builder = new Gtk.Builder ();
+        builder.add_from_file (Extension.path + '/prefs.glade');
+        builder.connect_signals(this);
 
-        this._horizontalSwitch = new Gtk.Switch ({active: schema.get_boolean ('horizontal-swipes')});
-        this._horizontalSwitch.connect('notify::active', Lang.bind (this, this._horizontalSwitchFlip));
-        this.attach_next_to(this._horizontalSwitch, this._horizontalSwitchLabel, Gtk.PositionType.RIGHT, 1, 1);
+        // The main grid
+        this._mainGrid = builder.get_object('mainGrid');
+        this.add(this._mainGrid);
 
-        this._horizontalLabel = new Gtk.Label ({label: "Action"});
-        this.add(this._horizontalLabel);
+        // Switches
+        this._horizontalThreeSwitch = builder.get_object('horizontalThreeSwitch');
+        this._horizontalThreeSwitch.set_active(schema.get_boolean('horizontal-three-swipes'));
+        this._horizontalThreeSwitch.connect('notify::active', Lang.bind(this, this._horizontalThreeSwitchChanged));
+        this._verticalThreeSwitch = builder.get_object('verticalThreeSwitch');
+        this._verticalThreeSwitch.set_active(schema.get_boolean('vertical-three-swipes'));
+        this._verticalThreeSwitch.connect('notify::active', Lang.bind(this, this._verticalThreeSwitchChanged));
+        this._horizontalFourSwitch = builder.get_object('horizontalFourSwitch');
+        this._horizontalFourSwitch.set_active(schema.get_boolean('horizontal-four-swipes'));
+        this._horizontalFourSwitch.connect('notify::active', Lang.bind(this, this._horizontalFourSwitchChanged));
+        this._verticalFourSwitch = builder.get_object('verticalFourSwitch');
+        this._verticalFourSwitch.set_active(true);
+        this._verticalFourSwitch.set_sensitive(false);
 
-        // Create the combobox
-        this._horizontalActionCombo = new Gtk.ComboBoxText();
+        // Combos
         let actions = ['Toggle Overview', 'Cycle Applications', 'Show App Drawer', 'Switch Workspace'];
-        for (let i = 0; i < actions.length; i++)
-            this._horizontalActionCombo.append_text (actions[i]);
-        this._horizontalActionCombo.set_active (schema.get_enum('horizontal-action'));
-        this._horizontalActionCombo.connect ('changed', Lang.bind (this, this._horizontalActionChanged));
-        this.attach_next_to(this._horizontalActionCombo, this._horizontalLabel, Gtk.PositionType.RIGHT, 1, 1);
+        this._horizontalThreeCombo = builder.get_object('horizontalThreeActionCombo');
+        this._horizontalThreeCombo.connect('changed', Lang.bind(this, this._horizontalThreeComboChanged));
+        this._verticalThreeCombo = builder.get_object('verticalThreeActionCombo');
+        this._verticalThreeCombo.connect('changed', Lang.bind(this, this._verticalThreeComboChanged));
+        this._horizontalFourCombo = builder.get_object('horizontalFourActionCombo');
+        this._horizontalFourCombo.connect('changed', Lang.bind(this, this._horizontalFourComboChanged));
+        this._verticalFourCombo = builder.get_object('verticalFourActionCombo');
+        this._verticalFourCombo.set_sensitive(false);
+        for (let i = 0; i < actions.length; i++) {
+            this._horizontalThreeCombo.append_text(actions[i]);
+            this._verticalThreeCombo.append_text(actions[i]);
+            this._horizontalFourCombo.append_text(actions[i]);
+            this._verticalFourCombo.append_text(actions[i]);
+        }
+        this._horizontalThreeCombo.set_active(schema.get_enum('horizontal-three-action'));
+        this._verticalThreeCombo.set_active(schema.get_enum('vertical-three-action'));
+        this._horizontalFourCombo.set_active(schema.get_enum('horizontal-four-action'));
+        this._verticalFourCombo.set_active(4);
     },
 
-    _horizontalSwitchFlip: function() {
-        schema.set_boolean ('horizontal-swipes', this._horizontalSwitch.get_active());
+    _horizontalThreeSwitchChanged: function () {
+        schema.set_boolean('horizontal-three-swipes', this._horizontalThreeSwitch.get_active());
+    },
+
+    _verticalThreeSwitchChanged: function () {
+        schema.set_boolean('vertical-three-swipes', this._verticalThreeSwitch.get_active());
+    },
+
+    _horizontalFourSwitchChanged: function () {
+        schema.set_boolean('horizontal-four-swipes', this._horizontalFourSwitch.get_active());
+    },
+
+    _horizontalThreeComboChanged: function () {
+        schema.set_enum('horizontal-three-action', this._horizontalThreeCombo.get_active());
     }, 
 
-    _horizontalActionChanged: function() {
-        schema.set_enum ('horizontal-action', this._horizontalActionCombo.get_active());
+    _verticalThreeComboChanged: function () {
+        schema.set_enum('vertical-three-action', this._verticalThreeCombo.get_active());
+    },
+
+    _horizontalFourComboChanged: function () {
+        schema.set_enum('horizontal-four-action', this._horizontalFourCombo.get_active());
     }
 });
 
-function buildPrefsWidget() {
-    let settingsWidget = new ExtendedGesturesSettingsWidget();
-    settingsWidget.show_all();
+function buildPrefsWidget () {
+    let settingsWidget = new ExtendedGesturesSettingsWidget ();
+    settingsWidget.show_all ();
     return settingsWidget;
 }
