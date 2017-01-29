@@ -32,14 +32,11 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
 
         // Switches
         this._horizontalThreeSwitch = builder.get_object('horizontalThreeSwitch');
-        this._horizontalThreeSwitch.set_active(schema.get_boolean('horizontal-three-swipes'));
-        this._horizontalThreeSwitch.connect('notify::active', Lang.bind(this, this._horizontalThreeSwitchChanged));
+        schema.bind('horizontal-three-swipes', this._horizontalThreeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         this._verticalThreeSwitch = builder.get_object('verticalThreeSwitch');
-        this._verticalThreeSwitch.set_active(schema.get_boolean('vertical-three-swipes'));
-        this._verticalThreeSwitch.connect('notify::active', Lang.bind(this, this._verticalThreeSwitchChanged));
+        schema.bind('vertical-three-swipes', this._verticalThreeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         this._horizontalFourSwitch = builder.get_object('horizontalFourSwitch');
-        this._horizontalFourSwitch.set_active(schema.get_boolean('horizontal-four-swipes'));
-        this._horizontalFourSwitch.connect('notify::active', Lang.bind(this, this._horizontalFourSwitchChanged));
+        schema.bind('horizontal-four-swipes', this._horizontalFourSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         this._verticalFourSwitch = builder.get_object('verticalFourSwitch');
         this._verticalFourSwitch.set_active(true);
         this._verticalFourSwitch.set_sensitive(false);
@@ -63,19 +60,7 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         this._horizontalThreeCombo.set_active(schema.get_enum('horizontal-three-action'));
         this._verticalThreeCombo.set_active(schema.get_enum('vertical-three-action'));
         this._horizontalFourCombo.set_active(schema.get_enum('horizontal-four-action'));
-        this._verticalFourCombo.set_active(4);
-    },
-
-    _horizontalThreeSwitchChanged: function () {
-        schema.set_boolean('horizontal-three-swipes', this._horizontalThreeSwitch.get_active());
-    },
-
-    _verticalThreeSwitchChanged: function () {
-        schema.set_boolean('vertical-three-swipes', this._verticalThreeSwitch.get_active());
-    },
-
-    _horizontalFourSwitchChanged: function () {
-        schema.set_boolean('horizontal-four-swipes', this._horizontalFourSwitch.get_active());
+        this._verticalFourCombo.set_active(3);
     },
 
     _horizontalThreeComboChanged: function () {
