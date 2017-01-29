@@ -41,7 +41,7 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
 
         // Create the combobox
         this._horizontalActionCombo = new Gtk.ComboBoxText();
-        let actions = ["Toggle Overview", "Cycle Applications"];
+        let actions = ['Toggle Overview', 'Cycle Applications', 'Show App Drawer', 'Switch Workspace'];
         for (let i = 0; i < actions.length; i++)
             this._horizontalActionCombo.append_text (actions[i]);
         this._horizontalActionCombo.set_active (schema.get_enum('horizontal-action'));

@@ -2,6 +2,8 @@
     <enum id="org.gnome.shell.extensions.extendedgestures.actions">
         <value value="0" nick="overview"/>
         <value value="1" nick="cycle-apps"/>
+        <value value="2" nick="app-drawer"/>
+        <value value="3" nick="switch-workspace"/>
     </enum>
     <schema id="org.gnome.shell.extensions.extendedgestures" path="/org/gnome/shell/extensions/extendedgestures/">
         <key name="horizontal-swipes" type="b">

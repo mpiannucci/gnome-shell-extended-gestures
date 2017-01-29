@@ -90,7 +90,20 @@ const TouchpadGestureAction = new Lang.Class({
                     Main.overview.toggle();
                     break;
                 case 1:
-                    Main.wm._switchApp();
+                    this._switchApp(dir);
+                    break;
+                case 2:
+                    Main.overview.toggle(); 
+                    if (Main.overview._shown) 
+                        Main.overview.viewSelector._toggleAppsPage();
+                    break;
+                case 3:
+                    if (dir == Meta.MotionDirection.LEFT) {
+                        dir = Meta.MotionDirection.UP;
+                    } else {
+                        dir = Meta.MotionDirection.DOWN;
+                    }
+                    Main.wm._actionSwitchWorkspace(sender, dir);
                     break;
                 default:
                     break;
@@ -116,6 +129,39 @@ const TouchpadGestureAction = new Lang.Class({
 
     _horizontalActionSettingChanged: function () {
         this.horizontalAction = schema.get_enum('horizontal-action');
+    },
+
+    _switchApp: function (dir) {
+        let windows = global.get_window_actors().filter(Lang.bind(Main.wm, function(actor) {
+            let win = actor.metaWindow;
+            return (!win.is_override_redirect() &&
+                    win.located_on_workspace(global.screen.get_active_workspace()));
+        }));
+
+        if (windows.length == 0)
+            return;
+
+        let focusWindow = global.display.focus_window;
+        let nextWindow;
+
+        if (focusWindow == null)
+            nextWindow = windows[0].metaWindow;
+        else {
+            let index = 0;
+
+            if (dir == Meta.MotionDirection.RIGHT)
+                index = Main.wm._lookupIndex (windows, focusWindow) + 1;
+            else 
+                index = Main.wm._lookupIndex (windows, focusWindow) - 1;
+
+            global.log(index);
+            if (index >= windows.length || index < 0)
+                index = 0;
+
+            nextWindow = windows[index].metaWindow;
+        }
+
+        Main.activateWindow(nextWindow);
     },
 
     _cleanup: function() {
