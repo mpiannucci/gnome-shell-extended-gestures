@@ -8,7 +8,7 @@ By defualt, GNOME uses `libinput` to detect touchpad gestures as they are perfor
 
 ## What Does It Allow Me To Do
 
-For now, it allows the user the configure three finger horizontal and vertical gestures, and four finger horizontal swiping gestures to perform a choice of actions supplied through the extension settings in `gnome-tweak-tool`. It works after hibernation and should work on most modern laptops. It has been tested on a `Macbook Pro Retina 11,1` and a `Surface Pro 3`. It is also display server agnostic so it will work in both Wayland and X sessions.
+For now, it allows the user the configure three finger horizontal and vertical gestures, and four finger horizontal swiping gestures to perform a choice of actions supplied through the extension settings in `gnome-tweak-tool`. It should work on most modern laptops with multitouch trackpads. It has been tested on a `Macbook Pro Retina 11,1` and a `Surface Pro 3`. It is also **display server agnostic** so it will work in both Wayland and X sessions.
 
 ## Limitations
 
