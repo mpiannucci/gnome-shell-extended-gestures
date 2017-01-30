@@ -26,15 +26,17 @@ const TouchpadGestureAction = new Lang.Class({
     _init: function(actor) {
         this._dx = 0;
         this._dy = 0;
-        //this.horizontalEnabled = schema.get_boolean('horizontal-swipes');
-        //this.horizontalAction = schema.get_enum('horizontal-action');
-        this.horizontalEnabled = true;
-        this.horizontalAction = 0;
+
+        this._horizontalThreeEnabled = schema.get_boolean('horizontal-three-swipes');
+        this._horizontalThreeAction = schema.get_enum('horizontal-three-action');
+        this._verticalThreeEnabled = schema.get_boolean('vertical-three-swipes');
+        this._verticalThreeAction = schema.get_enum('vertical-three-action');
+        this._horizontalFourEnabled = schema.get_boolean('horizontal-four-swipes');
+        this._horizontalFourAction = schema.get_enum('horizontal-four-action');
 
         this._gestureCallbackID = actor.connect('captured-event', Lang.bind(this, this._handleEvent));
         this._actionCallbackID = this.connect('activated', Lang.bind (this, this._doAction));
-        //this._horizontalEnabledCallbackID = schema.connect('changed', Lang.bind(this, this._horizontalEnabledSettingChanged));
-        //this._horizontalActionCallbackID = schema.connect('changed', Lang.bind(this, this._horizontalActionSettingChanged));
+        this._updateSettingsCallbackID = schema.connect('changed', Lang.bind(this, this._updateSettings));
     },
 
     _checkActivated: function() {
@@ -87,7 +89,7 @@ const TouchpadGestureAction = new Lang.Class({
 
     _doAction: function (sender, dir) {
         if (this._isSwipeHorizontal(dir)) {
-            switch (this.horizontalAction) {
+            switch (this._horizontalThreeAction) {
                 case 0:
                     Main.overview.toggle();
                     break;
@@ -116,7 +118,7 @@ const TouchpadGestureAction = new Lang.Class({
     },
 
     _checkSwipeValid: function (dir) {
-        if (!this.horizontalEnabled && this._isSwipeHorizontal(dir))
+        if (!this._horizontalThreeEnabled && this._isSwipeHorizontal(dir))
             return false;
         return true;
     },
@@ -166,11 +168,19 @@ const TouchpadGestureAction = new Lang.Class({
         Main.activateWindow(nextWindow);
     },
 
+    _updateSettings: function () {
+        this._horizontalThreeEnabled = schema.get_boolean('horizontal-three-swipes');
+        this._horizontalThreeAction = schema.get_enum('horizontal-three-action');
+        this._verticalThreeEnabled = schema.get_boolean('vertical-three-swipes');
+        this._verticalThreeAction = schema.get_enum('vertical-three-action');
+        this._horizontalFourEnabled = schema.get_boolean('horizontal-four-swipes');
+        this._horizontalFourAction = schema.get_enum('horizontal-four-action');
+    },
+
     _cleanup: function() {
         global.stage.disconnect(this._gestureCallbackID);
         this.disconnect(this._actionCallbackID);
-        schema.disconnect(this._horizontalEnabledCallbackID);
-        schema.disconnect(this._horizontalActionCallbackID);
+        schema.disconnect(this._updateSettingsCallbackID);
     }
 });
 
