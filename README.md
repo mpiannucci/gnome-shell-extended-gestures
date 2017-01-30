@@ -15,7 +15,7 @@ For now, it allows the user the configure three finger horizontal and vertical g
 There are a few limitations so far that you should be aware of: 
 
 * Actions are currently limited to things baked into the GNOME shell becasue this extension is basically sandboxed there. So currenlty setting an action like "swipe to go forward or back in the browser" is not currently possible. 
-* Pinch gestures are not handled or configured. Eventually I want to add in support for all pinching gestures but I have not done so yet. See #3.
+* Pinch gestures are not handled or configured. Eventually I want to add in support for all pinching gestures but I have not done so yet. See issue #3.
 * Four finger vertical gestures can not be turned off, nor can their action be changed from the default "switch workspace" behavior defined by default.
 * It only works with GNOME 3.22, no greater no less. There will be breakage when 3.24 is released becasue some of the `event` mehtod names have been changed. It will be updated for 3.24, I use Arch Linux.
 * It has only been tested on Arch Linux, but it should work with Fedora 25 or any other distro that used GNOME 3.22 and `libinput`
