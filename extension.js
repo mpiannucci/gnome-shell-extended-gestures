@@ -39,7 +39,7 @@ const TouchpadGestureAction = new Lang.Class({
         this._updateSettingsCallbackID = schema.connect('changed', Lang.bind(this, this._updateSettings));
     },
 
-    _checkActivated: function() {
+    _checkActivated: function(fingerCount) {
         const MOTION_THRESHOLD = 50;
         let allowedModes = Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW;
         let dir;
@@ -58,10 +58,10 @@ const TouchpadGestureAction = new Lang.Class({
         else
             return;
 
-        if (!this._checkSwipeValid(dir))
+        if (!this._checkSwipeValid(dir, fingerCount))
             return;
 
-        this.emit('activated', dir);
+        this.emit('activated', dir, fingerCount);
     },
 
     _handleEvent: function(actor, event) {
@@ -78,7 +78,7 @@ const TouchpadGestureAction = new Lang.Class({
             this._dy += dy;
         } else {
             if (event.get_gesture_phase() == Clutter.TouchpadGesturePhase.END)
-                this._checkActivated();
+                this._checkActivated(event.get_gesture_swipe_finger_count());
 
             this._dx = 0;
             this._dy = 0;
@@ -87,52 +87,70 @@ const TouchpadGestureAction = new Lang.Class({
         return Clutter.EVENT_STOP;
     },
 
-    _doAction: function (sender, dir) {
-        if (this._isSwipeHorizontal(dir)) {
-            switch (this._horizontalThreeAction) {
-                case 0:
-                    Main.overview.toggle();
-                    break;
-                case 1:
-                    this._switchApp(dir);
-                    break;
-                case 2:
-                    Main.overview.toggle(); 
-                    if (Main.overview._shown) 
-                        Main.overview.viewSelector._toggleAppsPage();
-                    break;
-                case 3:
-                    if (dir == Meta.MotionDirection.LEFT) {
-                        dir = Meta.MotionDirection.UP;
-                    } else {
-                        dir = Meta.MotionDirection.DOWN;
-                    }
-                    Main.wm._actionSwitchWorkspace(sender, dir);
-                    break;
-                default:
-                    break;
+    _doAction: function (sender, dir, fingerCount) {
+        let action = null;
+
+        if (fingerCount == 3) {
+            if (this._isSwipeHorizontal(dir)) {
+                action = this._horizontalThreeAction;
+            } else {
+                action = this._verticalThreeAction;
             }
-        } else {
-            Main.wm._actionSwitchWorkspace(sender, dir);
+        } else if (fingerCount == 4) {
+            if (this._isSwipeHorizontal(dir)) {
+                action = this._horizontalFourAction;
+            }
+        }
+
+        if (action == null) {
+            return;
+        }
+
+        switch (action) {
+            case 0:
+                Main.overview.toggle();
+                break;
+            case 1:
+                this._switchApp(dir);
+                break;
+            case 2:
+                Main.overview.toggle(); 
+                if (Main.overview._shown) 
+                    Main.overview.viewSelector._toggleAppsPage();
+                break;
+            case 3:
+                if (dir == Meta.MotionDirection.LEFT) {
+                    dir = Meta.MotionDirection.UP;
+                } else {
+                    dir = Meta.MotionDirection.DOWN;
+                }
+                Main.wm._actionSwitchWorkspace(sender, dir);
+                break;
+            default:
+                break;
         }
     },
 
-    _checkSwipeValid: function (dir) {
-        if (!this._horizontalThreeEnabled && this._isSwipeHorizontal(dir))
-            return false;
-        return true;
+    _checkSwipeValid: function (dir, fingerCount) {
+        if (fingerCount == 3) {
+            if (this._isSwipeHorizontal(dir)) {
+                return this._horizontalThreeEnabled;
+            } else {
+                return this._verticalThreeEnabled;
+            }
+        } else if (fingerCount == 4) {
+            if (this._isSwipeHorizontal(dir)) {
+                return this._horizontalFourEnabled;
+            } else {
+                return false;
+            }
+        }
+
+        return false;
     },
 
     _isSwipeHorizontal: function (dir) {
         return dir == Meta.MotionDirection.LEFT || dir == Meta.MotionDirection.RIGHT;
-    },
-
-    _horizontalEnabledSettingChanged: function () {
-        //this.horizontalEnabled = schema.get_boolean('horizontal-swipes');
-    },
-
-    _horizontalActionSettingChanged: function () {
-        //this.horizontalAction = schema.get_enum('horizontal-action');
     },
 
     _switchApp: function (dir) {
