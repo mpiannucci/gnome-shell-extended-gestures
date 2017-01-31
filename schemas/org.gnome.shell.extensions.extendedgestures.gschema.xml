@@ -26,15 +26,5 @@
             <summary>3 Finger Vertical Swipe Action</summary>
             <description>The action to perform when a 3 finger vertical swipe gesture is recognized</description>
         </key>
-        <key name="horizontal-four-swipes" type="b">
-            <default>true</default>
-            <summary>4 Finger Horizontal Swipes</summary>
-            <description>If true, horizontal 4 finger gestures will perform an actions as set by the user</description>
-        </key>
-        <key name="horizontal-four-action" enum="org.gnome.shell.extensions.extendedgestures.actions">
-            <default>'overview'</default>
-            <summary>4 Finger Horizontal Swipe Action</summary>
-            <description>The action to perform when a 4 finger horizontal swipe gesture is recognized</description>
-        </key>
     </schema>
 </schemalist>

@@ -31,8 +31,6 @@ const TouchpadGestureAction = new Lang.Class({
         this._horizontalThreeAction = schema.get_enum('horizontal-three-action');
         this._verticalThreeEnabled = schema.get_boolean('vertical-three-swipes');
         this._verticalThreeAction = schema.get_enum('vertical-three-action');
-        this._horizontalFourEnabled = schema.get_boolean('horizontal-four-swipes');
-        this._horizontalFourAction = schema.get_enum('horizontal-four-action');
 
         this._gestureCallbackID = actor.connect('captured-event', Lang.bind(this, this._handleEvent));
         this._actionCallbackID = this.connect('activated', Lang.bind (this, this._doAction));
@@ -68,7 +66,7 @@ const TouchpadGestureAction = new Lang.Class({
         if (event.type() != Clutter.EventType.TOUCHPAD_SWIPE)
             return Clutter.EVENT_PROPAGATE;
 
-        if (event.get_gesture_swipe_finger_count() < 3)
+        if (event.get_gesture_swipe_finger_count() != 3)
             return Clutter.EVENT_PROPAGATE;
 
         if (event.get_gesture_phase() == Clutter.TouchpadGesturePhase.UPDATE) {
@@ -95,10 +93,6 @@ const TouchpadGestureAction = new Lang.Class({
                 action = this._horizontalThreeAction;
             } else {
                 action = this._verticalThreeAction;
-            }
-        } else if (fingerCount == 4) {
-            if (this._isSwipeHorizontal(dir)) {
-                action = this._horizontalFourAction;
             }
         }
 
@@ -137,12 +131,6 @@ const TouchpadGestureAction = new Lang.Class({
                 return this._horizontalThreeEnabled;
             } else {
                 return this._verticalThreeEnabled;
-            }
-        } else if (fingerCount == 4) {
-            if (this._isSwipeHorizontal(dir)) {
-                return this._horizontalFourEnabled;
-            } else {
-                return false;
             }
         }
 
@@ -191,8 +179,6 @@ const TouchpadGestureAction = new Lang.Class({
         this._horizontalThreeAction = schema.get_enum('horizontal-three-action');
         this._verticalThreeEnabled = schema.get_boolean('vertical-three-swipes');
         this._verticalThreeAction = schema.get_enum('vertical-three-action');
-        this._horizontalFourEnabled = schema.get_boolean('horizontal-four-swipes');
-        this._horizontalFourAction = schema.get_enum('horizontal-four-action');
     },
 
     _cleanup: function() {

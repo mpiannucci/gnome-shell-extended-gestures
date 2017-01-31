@@ -36,7 +36,8 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         this._verticalThreeSwitch = builder.get_object('verticalThreeSwitch');
         schema.bind('vertical-three-swipes', this._verticalThreeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         this._horizontalFourSwitch = builder.get_object('horizontalFourSwitch');
-        schema.bind('horizontal-four-swipes', this._horizontalFourSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+        this._horizontalFourSwitch.set_active(false);
+        this._horizontalFourSwitch.set_sensitive(false);
         this._verticalFourSwitch = builder.get_object('verticalFourSwitch');
         this._verticalFourSwitch.set_active(true);
         this._verticalFourSwitch.set_sensitive(false);
@@ -48,7 +49,7 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         this._verticalThreeCombo = builder.get_object('verticalThreeActionCombo');
         this._verticalThreeCombo.connect('changed', Lang.bind(this, this._verticalThreeComboChanged));
         this._horizontalFourCombo = builder.get_object('horizontalFourActionCombo');
-        this._horizontalFourCombo.connect('changed', Lang.bind(this, this._horizontalFourComboChanged));
+        this._horizontalFourCombo.set_sensitive(false);
         this._verticalFourCombo = builder.get_object('verticalFourActionCombo');
         this._verticalFourCombo.set_sensitive(false);
         for (let i = 0; i < actions.length; i++) {
@@ -59,7 +60,7 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         }
         this._horizontalThreeCombo.set_active(schema.get_enum('horizontal-three-action'));
         this._verticalThreeCombo.set_active(schema.get_enum('vertical-three-action'));
-        this._horizontalFourCombo.set_active(schema.get_enum('horizontal-four-action'));
+        this._horizontalFourCombo.set_active(0);
         this._verticalFourCombo.set_active(3);
     },
 
@@ -69,10 +70,6 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
 
     _verticalThreeComboChanged: function () {
         schema.set_enum('vertical-three-action', this._verticalThreeCombo.get_active());
-    },
-
-    _horizontalFourComboChanged: function () {
-        schema.set_enum('horizontal-four-action', this._horizontalFourCombo.get_active());
     }
 });
 
