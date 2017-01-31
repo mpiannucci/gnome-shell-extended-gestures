@@ -121,7 +121,7 @@ const TouchpadGestureAction = new Lang.Class({
             case 3:
                 if (dir == Meta.MotionDirection.LEFT) {
                     dir = Meta.MotionDirection.UP;
-                } else {
+                } else if (dir == Meta.MotionDirection.RIGHT) {
                     dir = Meta.MotionDirection.DOWN;
                 }
                 Main.wm._actionSwitchWorkspace(sender, dir);
