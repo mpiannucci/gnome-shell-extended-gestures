@@ -5,7 +5,12 @@
   <object class="GtkGrid" id="mainGrid">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="row_homogeneous">True</property>
+    <property name="margin_left">6</property>
+    <property name="margin_right">6</property>
+    <property name="margin_top">6</property>
+    <property name="margin_bottom">6</property>
+    <property name="row_spacing">6</property>
+    <property name="column_spacing">6</property>
     <property name="column_homogeneous">True</property>
     <child>
       <object class="GtkFrame" id="globalSettingsFrame">
@@ -22,7 +27,8 @@
               <object class="GtkGrid">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="column_homogeneous">True</property>
+                <property name="row_spacing">6</property>
+                <property name="column_spacing">6</property>
                 <child>
                   <object class="GtkSpinButton" id="sensitivitySpinner">
                     <property name="visible">True</property>
@@ -41,7 +47,8 @@
                   <object class="GtkLabel" id="sensitivityLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Sensitivity</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Gesture Sensitivity</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -80,12 +87,15 @@
               <object class="GtkGrid">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="row_spacing">6</property>
+                <property name="column_spacing">6</property>
                 <property name="row_homogeneous">True</property>
-                <property name="column_homogeneous">True</property>
                 <child>
                   <object class="GtkLabel" id="horizontalThreeLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">start</property>
                     <property name="label" translatable="yes">3 Finger Horizontal Gestures</property>
                   </object>
                   <packing>
@@ -97,6 +107,7 @@
                   <object class="GtkLabel" id="verticalThreeLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">start</property>
                     <property name="label" translatable="yes">3 Finger Vertical Gestures
 </property>
                   </object>
@@ -109,6 +120,7 @@
                   <object class="GtkLabel" id="horizontalFourGestures">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">start</property>
                     <property name="label" translatable="yes">4 Finger Horizontal Gestures
 </property>
                   </object>
@@ -121,6 +133,7 @@
                   <object class="GtkLabel" id="verticalFourGestures">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">start</property>
                     <property name="label" translatable="yes">4 Finger Vertical Gestures</property>
                   </object>
                   <packing>
