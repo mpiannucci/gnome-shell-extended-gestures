@@ -1,4 +1,5 @@
 const Clutter = imports.gi.Clutter;
+const GObject = imports.gi.GObject;
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const Meta = imports.gi.Meta;
