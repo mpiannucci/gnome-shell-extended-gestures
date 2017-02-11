@@ -5,6 +5,7 @@ const Main = imports.ui.main;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
 const Signals = imports.signals;
+const WindowManager = imports.ui.windowManager;
 
 const Gettext = imports.gettext.domain('extendedgestures');
 const _ = Gettext.gettext;
