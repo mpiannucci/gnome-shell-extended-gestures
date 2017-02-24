@@ -27,6 +27,20 @@ Currently there are a few limitations so far that you should be aware of:
 * Wayland
 * libinput
 
+## Installation
+
+I have not uploaded this extension to the store yet, so for now you will have to install manually in either of two ways:
+
+1. Clone the repo a in your `~/.local/share/gnome-shell/extensions` folder like so. Then log out and back in to your session and you should be able to enable the extension in Tweak Tool
+
+        cd ~/.local/share/gnome-shell/extensions
+        git clone https://github.com/mpiannucci/GnomeExtendedGestures "extendedgestures@mpiannucci.github.com"
+
+2. Clone or download the repo where ever you would like, zip it up and install it manually through Tweak Tool
+
+        git clone https://github.com/mpiannucci/GnomeExtendedGestures "extendedgestures@mpiannucci.github.com"
+        zip -r "extendedgestures@mpiannucci.github.com" extendedgestures@mpiannucci.github.com
+
 ## License
 
 [GPL V3](LICENSE)
