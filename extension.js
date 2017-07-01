@@ -66,7 +66,9 @@ const TouchpadGestureAction = new Lang.Class({
         if (event.type() != Clutter.EventType.TOUCHPAD_SWIPE)
             return Clutter.EVENT_PROPAGATE;
 
-        if (event.get_gesture_swipe_finger_count() != 3)
+        global.log('[mpiannucci]', event.get_touchpad_gesture_finger_count())
+
+        if (event.get_touchpad_gesture_finger_count() != 3)
             return Clutter.EVENT_PROPAGATE;
 
         if (event.get_gesture_phase() == Clutter.TouchpadGesturePhase.UPDATE) {
@@ -76,7 +78,7 @@ const TouchpadGestureAction = new Lang.Class({
             this._dy += dy;
         } else {
             if (event.get_gesture_phase() == Clutter.TouchpadGesturePhase.END)
-                this._checkActivated(event.get_gesture_swipe_finger_count());
+                this._checkActivated(event.get_touchpad_gesture_finger_count());
 
             this._dx = 0;
             this._dy = 0;
