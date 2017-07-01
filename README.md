@@ -21,13 +21,13 @@ Currently there are a few limitations so far that you should be aware of:
 * Actions are currently limited to things baked into the GNOME shell because this extension is basically sandboxed there. So currenlty setting an action like "swipe to go forward or back in the browser" is not currently possible. 
 * Pinch gestures are not handled or configured. Eventually I want to add in support for all pinching gestures but I have not done so yet. See issue #3.
 * Four finger swipe gestures are captured by defualt by GNOME shell so they can not be handled by this extension. However, eventually four finger pinches should be able to be handled I believe. 
-* It only works with GNOME Wayland 3.22, no greater no less. There will be breakage when 3.24 is released because some of the `event` method names have been changed. It will be updated for 3.24, I use Arch Linux.
-* It has only been tested on Arch Linux, but it should work with Fedora 25 or any other distro that used GNOME Wayland 3.22 and `libinput`
+* It only works with GNOME Wayland 3.24, no greater no less. 
+* It has only been tested on Arch Linux, but it should work with Fedora or any other distro that used GNOME Wayland 3.24 and `libinput`
 * It *only* handles touchpad gestures, not touchscreen gestures because those are much better supported in GNOME out of the box.
 
 ## Requirements
 
-* GNOME 3.22
+* GNOME 3.24
 * Wayland
 * libinput
 
