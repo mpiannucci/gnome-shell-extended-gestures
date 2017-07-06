@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -f ./extendedgestures@mpiannucci.github.com.zip ] then
+if [ -f ./extendedgestures@mpiannucci.github.com.zip ]; then
     rm -rf ./extendedgestures@mpiannucci.github.com.zip
 fi
 
