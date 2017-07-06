@@ -1,4 +1,4 @@
-# GnomeExtendedGestures
+# gnome-shell-extended-gestures
 
 Provides extended touchpad gesture functionality and configuration to the GNOME desktop.
 
@@ -17,8 +17,8 @@ Currently there are a few limitations so far that you should be aware of:
 * Actions are currently limited to things baked into the GNOME shell because this extension is basically sandboxed there. So currenlty setting an action like "swipe to go forward or back in the browser" is not currently possible. 
 * Pinch gestures are not handled or configured. Eventually I want to add in support for all pinching gestures but I have not done so yet. See issue #3.
 * Four finger swipe gestures are captured by defualt by GNOME shell so they can not be handled by this extension. However, eventually four finger pinches should be able to be handled I believe. 
-* It only works with GNOME Wayland 3.24, no greater no less. 
-* It has only been tested on Arch Linux, but it should work with Fedora or any other distro that used GNOME Wayland 3.24 and `libinput`
+* It only works with GNOME Wayland 3.24. See the releases for a working 3.22 version.
+* It should work any distro that used GNOME Wayland 3.24 and `libinput`. Confirmed working with Arch Linux and Ubuntu GNOME 17.04
 * It *only* handles touchpad gestures, not touchscreen gestures because those are much better supported in GNOME out of the box.
 
 ## Requirements
@@ -33,13 +33,14 @@ I have not uploaded this extension to the store yet, so for now you will have to
 
 1. Clone the repo a in your `~/.local/share/gnome-shell/extensions` folder like so. Then log out and back in to your session and you should be able to enable the extension in Tweak Tool
 
-        cd ~/.local/share/gnome-shell/extensions
-        git clone https://github.com/mpiannucci/GnomeExtendedGestures "extendedgestures@mpiannucci.github.com"
+	git clone https://github.com/mpiannucci/gnome-shell-extended-gestures
+	cp -r gnome-shell-extended-gestures/extendedgestures@mpiannucci.github.com ~/.local/share/gnome-shell/extensions
 
 2. Clone or download the repo where ever you would like, zip it up and install it manually through Tweak Tool
 
-        git clone https://github.com/mpiannucci/GnomeExtendedGestures "extendedgestures@mpiannucci.github.com"
-        zip -r "extendedgestures@mpiannucci.github.com" extendedgestures@mpiannucci.github.com
+        git clone https://github.com/mpiannucci/gnome-shell-extended-gestures
+	cd gnome-shell-extended-gestures
+        zip -r extendedgestures@mpiannucci.github.com.zip extendedgestures@mpiannucci.github.com
 
 ## License
 

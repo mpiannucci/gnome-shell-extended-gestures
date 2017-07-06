@@ -1,1 +1,5 @@
+# UI file cache
 *.glade~
+
+# zip release packages
+extendedgestures@mpiannucci.github.com.zip
