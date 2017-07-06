@@ -45,7 +45,7 @@ I have not uploaded this extension to the store yet, so for now you will have to
 	```bash
 	git clone https://github.com/mpiannucci/gnome-shell-extended-gestures
 	cd gnome-shell-extended-gestures
-	zip -r extendedgestures@mpiannucci.github.com.zip extendedgestures@mpiannucci.github.com
+	./package.sh
 	```
 
 ## License
