@@ -2,6 +2,8 @@
 
 Provides extended touchpad gesture functionality and configuration to the GNOME desktop.
 
+https://extensions.gnome.org/extension/1253/extended-gestures/
+
 ![gesture-settings](gesture-settings.png)
 
 ## Background
@@ -31,7 +33,11 @@ Currently there are a few limitations so far that you should be aware of:
 
 ## Installation
 
-I have not uploaded this extension to the store yet, so for now you will have to install manually in either of two ways:
+### From the GNOME Extensions Store
+
+Get it [here](https://extensions.gnome.org/extension/1253/extended-gestures/)
+
+### Manually
 
 1. Clone the repo a in your `~/.local/share/gnome-shell/extensions` folder like so. Then log out and back in to your session and you should be able to enable the extension in Tweak Tool
 
@@ -39,6 +45,8 @@ I have not uploaded this extension to the store yet, so for now you will have to
 	git clone https://github.com/mpiannucci/gnome-shell-extended-gestures
 	cp -r gnome-shell-extended-gestures/extendedgestures@mpiannucci.github.com ~/.local/share/gnome-shell/extensions
 	```
+	
+*or*
 
 2. Clone or download the repo where ever you would like, zip it up and install it manually through Tweak Tool
 
