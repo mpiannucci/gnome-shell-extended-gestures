@@ -55,6 +55,15 @@ Get it [here](https://extensions.gnome.org/extension/1253/extended-gestures/)
 	cd gnome-shell-extended-gestures
 	./package.sh
 	```
+	
+## Toubleshooting
+
+If it is not working, check the following. If it still does not work, please post an issue detailing your laptop model, operating system and gnome shell version
+
+* Make sure you are running a wayland session
+* Make sure your trackpad supports multitouch
+* Make sure you are using GNOME 3.24 
+* If `libinput-gestures` is installed, uninstall it and relaod your session. It should work after that.
 
 ## License
 
