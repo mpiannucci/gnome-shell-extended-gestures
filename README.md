@@ -62,7 +62,12 @@ If it is not working, check the following. If it still does not work, please pos
 
 * Make sure you are running a wayland session
 * Make sure your trackpad supports multitouch
-* Make sure you are using GNOME 3.24 
+* Make sure you are using GNOME 3.24
+
+If you are confident that you have satisfied those three things, try and **swipe vertically up AND down with four fingers**. This gesture is buiult into GNOME by default and it should switch workspace (make sure workspace switching is enabled) when the gesture occurs. If that works and the extension still does not, please file an issue so I can look into it!!
+
+#### Other known issues to check
+
 * If `libinput-gestures` is installed, uninstall it and relaod your session. It should work after that.
 
 ## License
