@@ -12,7 +12,7 @@ By defualt, GNOME uses `libinput` to detect touchpad gestures as they are perfor
 
 ## What Does It Allow Me To Do
 
-For now, it allows the user the configure three finger horizontal and vertical gestures to perform a choice of actions supplied through the extension settings in `gnome-tweak-tool`. It should work on most modern laptops with multitouch trackpads. It has been tested on a `Macbook Pro Retina 11,1`, `Surface Pro 3` and `Asus Zenbook UX501VW`.
+For now, it allows the user the configure three finger horizontal and vertical gestures to perform a choice of actions supplied through the extension settings in `gnome-tweak-tool`. It should work on most modern laptops with multitouch trackpads. It has been tested on many modern devices. Please see [hardware](hardware.md) for more information!.
 
 ## Current Limitations
 
