@@ -66,8 +66,6 @@ const TouchpadGestureAction = new Lang.Class({
         if (event.type() != Clutter.EventType.TOUCHPAD_SWIPE)
             return Clutter.EVENT_PROPAGATE;
 
-        global.log('[mpiannucci]', event.get_touchpad_gesture_finger_count())
-
         if (event.get_touchpad_gesture_finger_count() != 3)
             return Clutter.EVENT_PROPAGATE;
 
@@ -166,7 +164,6 @@ const TouchpadGestureAction = new Lang.Class({
             else 
                 index = Main.wm._lookupIndex (windows, focusWindow) - 1;
 
-            global.log(index);
             if (index >= windows.length || index < 0)
                 index = 0;
 

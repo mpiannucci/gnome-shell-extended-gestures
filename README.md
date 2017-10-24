@@ -56,7 +56,7 @@ Get it [here](https://extensions.gnome.org/extension/1253/extended-gestures/)
 	./package.sh
 	```
 	
-## Toubleshooting
+## Troubleshooting
 
 If it is not working, check the following. If it still does not work, please post an issue detailing your laptop model, operating system and gnome shell version
 
