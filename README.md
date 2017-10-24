@@ -12,7 +12,7 @@ By defualt, GNOME uses `libinput` to detect touchpad gestures as they are perfor
 
 ## What Does It Allow Me To Do
 
-For now, it allows the user the configure three finger horizontal and vertical gestures to perform a choice of actions supplied through the extension settings in `gnome-tweak-tool`. It should work on most modern laptops with multitouch trackpads. It has been tested on a `Macbook Pro Retina 11,1` and a `Surface Pro 3`.
+For now, it allows the user the configure three finger horizontal and vertical gestures to perform a choice of actions supplied through the extension settings in `gnome-tweak-tool`. It should work on most modern laptops with multitouch trackpads. It has been tested on a `Macbook Pro Retina 11,1`, `Surface Pro 3` and `Asus Zenbook UX501VW`.
 
 ## Current Limitations
 
@@ -21,13 +21,13 @@ Currently there are a few limitations so far that you should be aware of:
 * Actions are currently limited to things baked into the GNOME shell because this extension is basically sandboxed there. So currenlty setting an action like "swipe to go forward or back in the browser" is not currently possible. 
 * Pinch gestures are not handled or configured. Eventually I want to add in support for all pinching gestures but I have not done so yet. See issue #3.
 * Four finger swipe gestures are captured by defualt by GNOME shell so they can not be handled by this extension. However, eventually four finger pinches should be able to be handled I believe. 
-* It only works with GNOME Wayland 3.24. See the releases for a working 3.22 version.
-* It should work any distro that used GNOME Wayland 3.24 and `libinput`. Confirmed working with Arch Linux and Ubuntu GNOME 17.04
+* It only works with GNOME Wayland 3.26. See the releases for a working 3.22 and 3.24 version.
+* It should work any distro that used GNOME Wayland 3.26 and `libinput`. Confirmed working with Arch Linux and Ubuntu GNOME 17.04
 * It *only* handles touchpad gestures, not touchscreen gestures because those are much better supported in GNOME out of the box.
 
 ## Requirements
 
-* GNOME 3.24
+* GNOME 3.26
 * Wayland
 * libinput
 
@@ -62,7 +62,7 @@ If it is not working, check the following. If it still does not work, please pos
 
 * Make sure you are running a wayland session
 * Make sure your trackpad supports multitouch
-* Make sure you are using GNOME 3.24
+* Make sure you are using GNOME 3.26
 
 If you are confident that you have satisfied those three things, try and **swipe vertically up AND down with four fingers**. This gesture is buiult into GNOME by default and it should switch workspace (make sure workspace switching is enabled) when the gesture occurs. If that works and the extension still does not, please file an issue so I can look into it!!
 
