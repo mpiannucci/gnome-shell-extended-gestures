@@ -68,7 +68,7 @@ If you are confident that you have satisfied those three things, try and **swipe
 
 #### Other known issues to check
 
-* If `libinput-gestures` is installed, uninstall it and relaod your session. It should work after that.
+* If `libinput-gestures` is installed, uninstall it and reload your session. It should work after that.
 
 ## License
 
