@@ -159,7 +159,7 @@ const TouchpadGestureAction = new Lang.Class({
         else {
             let index = 0;
 
-            if (dir == Meta.MotionDirection.RIGHT)
+            if (dir == Meta.MotionDirection.RIGHT || dir == Meta.MotionDirection.UP)
                 index = Main.wm._lookupIndex (windows, focusWindow) + 1;
             else 
                 index = Main.wm._lookupIndex (windows, focusWindow) - 1;
