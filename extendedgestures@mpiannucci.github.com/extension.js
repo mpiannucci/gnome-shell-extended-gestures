@@ -39,22 +39,25 @@ const TouchpadGestureAction = new Lang.Class({
 
     _checkActivated: function(fingerCount) {
         const MOTION_THRESHOLD = 50;
+        const DIRECTION_LOOKUP = {
+            0: Meta.MotionDirection.RIGHT,
+            1: Meta.MotionDirection.UP,
+            2: Meta.MotionDirection.LEFT,
+            -1: Meta.MotionDirection.DOWN,
+            3: Meta.MotionDirection.DOWN
+        };
+
+        let magnitude = Math.sqrt(Math.pow(this._dy, 2) + Math.pow(this._dx, 2));
+        if (magnitude < MOTION_THRESHOLD)
+            return;
+
         let allowedModes = Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW;
-        let dir;
 
         if ((allowedModes & Main.actionMode) == 0)
             return;
 
-        if (this._dy < -MOTION_THRESHOLD)
-            dir = Meta.MotionDirection.DOWN;
-        else if (this._dy > MOTION_THRESHOLD)
-            dir = Meta.MotionDirection.UP;
-        else if (this._dx < -MOTION_THRESHOLD)
-            dir = Meta.MotionDirection.RIGHT;
-        else if (this._dx > MOTION_THRESHOLD)
-            dir = Meta.MotionDirection.LEFT;
-        else
-            return;
+        let rounded_direction = Math.round(Math.atan2(this._dy, this._dx) / Math.PI * 2);
+        let dir = DIRECTION_LOOKUP[rounded_direction]
 
         if (!this._checkSwipeValid(dir, fingerCount))
             return;
