@@ -35,20 +35,32 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         
         // The swipe options
         // Three finger horizontal
-        this._horizontalThreeLabel = new Gtk.Label({label: "3 Finger Horizontal Gestures"});
-        this._horizontalThreeSwitch = new Gtk.Switch();
-        this._horizontalThreeCombo = new Gtk.ComboBoxText();
-        this._swipeOptionsGrid.attach(this._horizontalThreeLabel, 0, 0, 1, 1);
-        this._swipeOptionsGrid.attach(this._horizontalThreeSwitch, 1, 0, 1, 1);
-        this._swipeOptionsGrid.attach(this._horizontalThreeCombo, 2, 0, 1, 1);
+        this._leftThreeLabel = new Gtk.Label({label: "3 Finger Left Horizontal Gestures"});
+        this._leftThreeSwitch = new Gtk.Switch();
+        this._leftThreeCombo = new Gtk.ComboBoxText();
+        this._swipeOptionsGrid.attach(this._leftThreeLabel, 0, 0, 1, 1);
+        this._swipeOptionsGrid.attach(this._leftThreeSwitch, 1, 0, 1, 1);
+        this._swipeOptionsGrid.attach(this._leftThreeCombo, 2, 0, 1, 1);
+        this._rightThreeLabel = new Gtk.Label({label: "3 Finger Right Horizontal Gestures"});
+        this._rightThreeSwitch = new Gtk.Switch();
+        this._rightThreeCombo = new Gtk.ComboBoxText();
+        this._swipeOptionsGrid.attach(this._rightThreeLabel, 0, 0, 1, 1);
+        this._swipeOptionsGrid.attach(this._rightThreeSwitch, 1, 0, 1, 1);
+        this._swipeOptionsGrid.attach(this._rightThreeCombo, 2, 0, 1, 1);
 
         // Three finger vertical
-        this._verticalThreeLabel = new Gtk.Label({label: "3 Finger Vertical Gestures"});
-        this._verticalThreeSwitch = new Gtk.Switch();
-        this._verticalThreeCombo = new Gtk.ComboBoxText();
-        this._swipeOptionsGrid.attach(this._verticalThreeLabel, 0, 1, 1, 1);
-        this._swipeOptionsGrid.attach(this._verticalThreeSwitch, 1, 1, 1, 1);
-        this._swipeOptionsGrid.attach(this._verticalThreeCombo, 2, 1, 1, 1);
+        this._upThreeLabel = new Gtk.Label({label: "3 Finger Up Vertical Gestures"});
+        this._upThreeSwitch = new Gtk.Switch();
+        this._upThreeCombo = new Gtk.ComboBoxText();
+        this._swipeOptionsGrid.attach(this._upThreeLabel, 0, 1, 1, 1);
+        this._swipeOptionsGrid.attach(this._upThreeSwitch, 1, 1, 1, 1);
+        this._swipeOptionsGrid.attach(this._upThreeCombo, 2, 1, 1, 1);
+        this._downThreeLabel = new Gtk.Label({label: "3 Finger Down Vertical Gestures"});
+        this._downThreeSwitch = new Gtk.Switch();
+        this._downThreeCombo = new Gtk.ComboBoxText();
+        this._swipeOptionsGrid.attach(this._downThreeLabel, 0, 1, 1, 1);
+        this._swipeOptionsGrid.attach(this._downThreeSwitch, 1, 1, 1, 1);
+        this._swipeOptionsGrid.attach(this._downThreeCombo, 2, 1, 1, 1);
 
         // Four finger horizontal
         this._horizontalFourLabel = new Gtk.Label({label: "4 Finger Horizontal Gestures"});
@@ -80,33 +92,49 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         this._verticalFourSwitch.set_sensitive(false);
 
         // Bind the three swipe toggles to their setting values
-        schema.bind('horizontal-three-swipes', this._horizontalThreeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-        schema.bind('vertical-three-swipes', this._verticalThreeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+        schema.bind('left-three-swipes', this._leftThreeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+        schema.bind('right-three-swipes', this._rightThreeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+        schema.bind('up-three-swipes', this._upThreeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+        schema.bind('down-three-swipes', this._downThreeSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
 
         // Action set up
-        this._horizontalThreeCombo.connect('changed', Lang.bind(this, this._horizontalThreeComboChanged));
-        this._verticalThreeCombo.connect('changed', Lang.bind(this, this._verticalThreeComboChanged));
+        this._leftThreeCombo.connect('changed', Lang.bind(this, this._leftThreeComboChanged));
+        this._rightThreeCombo.connect('changed', Lang.bind(this, this._rightThreeComboChanged));
+        this._upThreeCombo.connect('changed', Lang.bind(this, this._upThreeComboChanged));
+        this._downThreeCombo.connect('changed', Lang.bind(this, this._downThreeComboChanged));
         this._horizontalFourCombo.set_sensitive(false);
         this._verticalFourCombo.set_sensitive(false);
         for (let i = 0; i < actions.length; i++) {
-            this._horizontalThreeCombo.append_text(actions[i]);
-            this._verticalThreeCombo.append_text(actions[i]);
+            this._leftThreeCombo.append_text(actions[i]);
+            this._rightThreeCombo.append_text(actions[i]);
+            this._upThreeCombo.append_text(actions[i]);
+            this._downThreeCombo.append_text(actions[i]);
             this._horizontalFourCombo.append_text(actions[i]);
             this._verticalFourCombo.append_text(actions[i]);
         }
-        this._horizontalThreeCombo.set_active(schema.get_enum('horizontal-three-action'));
-        this._verticalThreeCombo.set_active(schema.get_enum('vertical-three-action'));
+        this._leftThreeCombo.set_active(schema.get_enum('left-three-action'));
+        this._rightThreeCombo.set_active(schema.get_enum('right-three-action'));
+        this._upThreeCombo.set_active(schema.get_enum('up-three-action'));
+        this._downThreeCombo.set_active(schema.get_enum('down-three-action'));
         this._horizontalFourCombo.set_active(0);
         this._verticalFourCombo.set_active(3);
     },
 
-    _horizontalThreeComboChanged: function () {
-        schema.set_enum('horizontal-three-action', this._horizontalThreeCombo.get_active());
+    _leftThreeComboChanged: function () {
+        schema.set_enum('left-three-action', this._leftThreeCombo.get_active());
     }, 
 
-    _verticalThreeComboChanged: function () {
-        schema.set_enum('vertical-three-action', this._verticalThreeCombo.get_active());
-    }
+    _rightThreeComboChanged: function () {
+        schema.set_enum('right-three-action', this._rightThreeCombo.get_active());
+    }, 
+
+    _upThreeComboChanged: function () {
+        schema.set_enum('up-three-action', this._upThreeCombo.get_active());
+    },
+
+    _downThreeComboChanged: function () {
+        schema.set_enum('down-three-action', this._downThreeCombo.get_active());
+    },
 });
 
 function buildPrefsWidget () {
