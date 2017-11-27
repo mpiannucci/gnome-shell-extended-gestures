@@ -60,7 +60,7 @@ const TouchpadGestureAction = new Lang.Class({
             return;
 
         let rounded_direction = Math.round(Math.atan2(this._dy, this._dx) / Math.PI * 2);
-        if (rounded_direction < 0) 
+        if (rounded_direction < 0)
             rounded_direction = 3;
         let dir = DIRECTION_LOOKUP[rounded_direction]
 
