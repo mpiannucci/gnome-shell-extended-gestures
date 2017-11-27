@@ -33,7 +33,7 @@
             <description>If true, vertical up 3 finger gestures will perform an actions as set by the user</description>
         </key>
         <key name="up-three-action" enum="org.gnome.shell.extensions.extendedgestures.actions">
-            <default>'overview'</default>
+            <default>'switch-workspace'</default>
             <summary>3 Finger Up Vertical Swipe Action</summary>
             <description>The action to perform when a 3 finger up vertical swipe gesture is recognized</description>
         </key>
@@ -43,7 +43,7 @@
             <description>If true, vertical down 3 finger gestures will perform an actions as set by the user</description>
         </key>
         <key name="down-three-action" enum="org.gnome.shell.extensions.extendedgestures.actions">
-            <default>'overview'</default>
+            <default>'switch-workspace'</default>
             <summary>3 Finger Down Vertical Swipe Action</summary>
             <description>The action to perform when a 3 finger down vertical swipe gesture is recognized</description>
         </key>
