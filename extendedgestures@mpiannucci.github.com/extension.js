@@ -60,8 +60,11 @@ const TouchpadGestureAction = new Lang.Class({
             return;
 
         let rounded_direction = Math.round(Math.atan2(this._dy, this._dx) / Math.PI * 2);
-        if (rounded_direction < 0)
+        if (rounded_direction == -1) {
             rounded_direction = 3;
+        } else if (rounded_direction == -2) {
+            rounded_direction = 2;
+        }
         let dir = DIRECTION_LOOKUP[rounded_direction]
 
         if (!this._checkSwipeValid(dir, fingerCount))
@@ -100,19 +103,24 @@ const TouchpadGestureAction = new Lang.Class({
             switch (dir) {
                 case Meta.MotionDirection.LEFT:
                     action = this._leftThreeAction;
+                    break;
                 case Meta.MotionDirection.RIGHT:
                     action = this._rightThreeAction;
+                    break;
                 case Meta.MotionDirection.UP:
                     action = this._upThreeAction;
+                    break;
                 case Meta.MotionDirection.DOWN:
                     action = this._downThreeAction;
+                    break;
                 default:
                     break;
             }
         }
 
-        if (action == null)
+        if (action == null) {
             return;
+        }
 
         switch (action) {
             case 0:
