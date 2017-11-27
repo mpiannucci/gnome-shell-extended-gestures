@@ -4,27 +4,48 @@
         <value value="1" nick="cycle-apps"/>
         <value value="2" nick="app-drawer"/>
         <value value="3" nick="switch-workspace"/>
+        <value value="4" nick="nothing"/>
     </enum>
     <schema id="org.gnome.shell.extensions.extendedgestures" path="/org/gnome/shell/extensions/extendedgestures/">
-        <key name="horizontal-three-swipes" type="b">
+        <key name="left-three-swipes" type="b">
             <default>true</default>
-            <summary>3 Finger Horizontal Swipes</summary>
-            <description>If true, horizontal 3 finger gestures will perform an actions as set by the user</description>
+            <summary>3 Finger Left Horizontal Swipes</summary>
+            <description>If true, horizontal left 3 finger gestures will perform an actions as set by the user</description>
         </key>
-        <key name="horizontal-three-action" enum="org.gnome.shell.extensions.extendedgestures.actions">
+        <key name="left-three-action" enum="org.gnome.shell.extensions.extendedgestures.actions">
             <default>'overview'</default>
-            <summary>3 Finger Horizontal Swipe Action</summary>
-            <description>The action to perform when a 3 finger horizontal swipe gesture is recognized</description>
+            <summary>3 Finger Left Horizontal Swipe Action</summary>
+            <description>The action to perform when a 3 finger left horizontal swipe gesture is recognized</description>
         </key>
-        <key name="vertical-three-swipes" type="b">
+        <key name="right-three-swipes" type="b">
             <default>true</default>
-            <summary>3 Finger Vertical Swipes</summary>
-            <description>If true, vertical 3 finger gestures will perform an actions as set by the user</description>
+            <summary>3 Finger Right Horizontal Swipes</summary>
+            <description>If true, horizontal right 3 finger gestures will perform an actions as set by the user</description>
         </key>
-        <key name="vertical-three-action" enum="org.gnome.shell.extensions.extendedgestures.actions">
+        <key name="right-three-action" enum="org.gnome.shell.extensions.extendedgestures.actions">
             <default>'overview'</default>
-            <summary>3 Finger Vertical Swipe Action</summary>
-            <description>The action to perform when a 3 finger vertical swipe gesture is recognized</description>
+            <summary>3 Finger Right Horizontal Swipe Action</summary>
+            <description>The action to perform when a 3 finger right horizontal swipe gesture is recognized</description>
+        </key>
+        <key name="up-three-swipes" type="b">
+            <default>true</default>
+            <summary>3 Finger Up Vertical Swipes</summary>
+            <description>If true, vertical up 3 finger gestures will perform an actions as set by the user</description>
+        </key>
+        <key name="up-three-action" enum="org.gnome.shell.extensions.extendedgestures.actions">
+            <default>'switch-workspace'</default>
+            <summary>3 Finger Up Vertical Swipe Action</summary>
+            <description>The action to perform when a 3 finger up vertical swipe gesture is recognized</description>
+        </key>
+        <key name="down-three-swipes" type="b">
+            <default>true</default>
+            <summary>3 Finger Down Vertical Swipes</summary>
+            <description>If true, vertical down 3 finger gestures will perform an actions as set by the user</description>
+        </key>
+        <key name="down-three-action" enum="org.gnome.shell.extensions.extendedgestures.actions">
+            <default>'switch-workspace'</default>
+            <summary>3 Finger Down Vertical Swipe Action</summary>
+            <description>The action to perform when a 3 finger down vertical swipe gesture is recognized</description>
         </key>
     </schema>
 </schemalist>

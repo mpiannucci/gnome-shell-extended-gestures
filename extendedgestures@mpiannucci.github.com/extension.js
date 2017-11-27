@@ -27,10 +27,14 @@ const TouchpadGestureAction = new Lang.Class({
         this._dx = 0;
         this._dy = 0;
 
-        this._horizontalThreeEnabled = schema.get_boolean('horizontal-three-swipes');
-        this._horizontalThreeAction = schema.get_enum('horizontal-three-action');
-        this._verticalThreeEnabled = schema.get_boolean('vertical-three-swipes');
-        this._verticalThreeAction = schema.get_enum('vertical-three-action');
+        this._leftThreeEnabled = schema.get_boolean('left-three-swipes');
+        this._leftThreeAction = schema.get_enum('left-three-action');
+        this._rightThreeEnabled = schema.get_boolean('right-three-swipes');
+        this._rightThreeAction = schema.get_enum('right-three-action');
+        this._upThreeEnabled = schema.get_boolean('up-three-swipes');
+        this._upThreeAction = schema.get_enum('up-three-action');
+        this._downThreeEnabled = schema.get_boolean('down-three-swipes');
+        this._downThreeAction = schema.get_enum('down-three-action');
 
         this._gestureCallbackID = actor.connect('captured-event', Lang.bind(this, this._handleEvent));
         this._actionCallbackID = this.connect('activated', Lang.bind (this, this._doAction));
@@ -56,8 +60,11 @@ const TouchpadGestureAction = new Lang.Class({
             return;
 
         let rounded_direction = Math.round(Math.atan2(this._dy, this._dx) / Math.PI * 2);
-        if (rounded_direction < 0) 
+        if (rounded_direction == -1) {
             rounded_direction = 3;
+        } else if (rounded_direction == -2) {
+            rounded_direction = 2;
+        }
         let dir = DIRECTION_LOOKUP[rounded_direction]
 
         if (!this._checkSwipeValid(dir, fingerCount))
@@ -93,10 +100,21 @@ const TouchpadGestureAction = new Lang.Class({
         let action = null;
 
         if (fingerCount == 3) {
-            if (this._isSwipeHorizontal(dir)) {
-                action = this._horizontalThreeAction;
-            } else {
-                action = this._verticalThreeAction;
+            switch (dir) {
+                case Meta.MotionDirection.LEFT:
+                    action = this._leftThreeAction;
+                    break;
+                case Meta.MotionDirection.RIGHT:
+                    action = this._rightThreeAction;
+                    break;
+                case Meta.MotionDirection.UP:
+                    action = this._upThreeAction;
+                    break;
+                case Meta.MotionDirection.DOWN:
+                    action = this._downThreeAction;
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -131,25 +149,32 @@ const TouchpadGestureAction = new Lang.Class({
 
     _checkSwipeValid: function (dir, fingerCount) {
         if (fingerCount == 3) {
-            if (this._isSwipeHorizontal(dir)) {
-                return this._horizontalThreeEnabled;
-            } else {
-                return this._verticalThreeEnabled;
+            switch (dir) {
+                case Meta.MotionDirection.LEFT:
+                    return this._leftThreeEnabled;
+                case Meta.MotionDirection.RIGHT:
+                    return this._rightThreeEnabled;
+                case Meta.MotionDirection.UP:
+                    return this._upThreeEnabled;
+                case Meta.MotionDirection.DOWN:
+                    return this._downThreeEnabled;
+                default:
+                    break;
             }
         }
 
         return false;
     },
 
-    _isSwipeHorizontal: function (dir) {
-        return dir == Meta.MotionDirection.LEFT || dir == Meta.MotionDirection.RIGHT;
-    },
-
     _updateSettings: function () {
-        this._horizontalThreeEnabled = schema.get_boolean('horizontal-three-swipes');
-        this._horizontalThreeAction = schema.get_enum('horizontal-three-action');
-        this._verticalThreeEnabled = schema.get_boolean('vertical-three-swipes');
-        this._verticalThreeAction = schema.get_enum('vertical-three-action');
+        this._leftThreeEnabled = schema.get_boolean('left-three-swipes');
+        this._leftThreeAction = schema.get_enum('left-three-action');
+        this._rightThreeEnabled = schema.get_boolean('right-three-swipes');
+        this._rightThreeAction = schema.get_enum('right-three-action');
+        this._upThreeEnabled = schema.get_boolean('up-three-swipes');
+        this._upThreeAction = schema.get_enum('up-three-action');
+        this._downThreeEnabled = schema.get_boolean('down-three-swipes');
+        this._downThreeAction = schema.get_enum('down-three-action');
     },
 
     _cleanup: function() {
