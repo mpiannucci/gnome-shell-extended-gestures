@@ -109,7 +109,7 @@ const TouchpadGestureAction = new Lang.Class({
                 Main.overview.toggle();
                 break;
             case 1:
-                this._switchApp(dir);
+                Main.wm._switchApp();
                 break;
             case 2:
                 Main.overview.toggle(); 
@@ -143,38 +143,6 @@ const TouchpadGestureAction = new Lang.Class({
 
     _isSwipeHorizontal: function (dir) {
         return dir == Meta.MotionDirection.LEFT || dir == Meta.MotionDirection.RIGHT;
-    },
-
-    _switchApp: function (dir) {
-        let windows = global.get_window_actors().filter(Lang.bind(Main.wm, function(actor) {
-            let win = actor.metaWindow;
-            return (!win.is_override_redirect() &&
-                    win.located_on_workspace(global.screen.get_active_workspace()));
-        }));
-
-        if (windows.length == 0)
-            return;
-
-        let focusWindow = global.display.focus_window;
-        let nextWindow;
-
-        if (focusWindow == null)
-            nextWindow = windows[0].metaWindow;
-        else {
-            let index = 0;
-
-            if (dir == Meta.MotionDirection.RIGHT || dir == Meta.MotionDirection.UP)
-                index = Main.wm._lookupIndex (windows, focusWindow) + 1;
-            else 
-                index = Main.wm._lookupIndex (windows, focusWindow) - 1;
-
-            if (index >= windows.length || index < 0)
-                index = 0;
-
-            nextWindow = windows[index].metaWindow;
-        }
-
-        Main.activateWindow(nextWindow);
     },
 
     _updateSettings: function () {
