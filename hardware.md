@@ -10,5 +10,5 @@ The following devices have been **confirmed** as working with this extension. Ma
 | Dell XPS 13 (Infinity edge devices and newer) | Yes |
 | Dell XPS 15 (Infinity edge devices and newer) | Yes |
 | ThinkPad Edge E40 | No |
-| ThinkPad X1 Carbon | Yes (but needs better sensitivity tweaks) |
+| ThinkPad X1 Carbon & Yoga 260 (2016) | Yes (but needs better sensitivity tweaks) |
 | Wacom Touch Tablet | No |
