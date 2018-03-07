@@ -86,7 +86,13 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
     },
 
     _initUI: function() {
-        let actions = ['Toggle Overview', 'Cycle Applications', 'Show App Drawer', 'Switch Workspace'];
+        const actions = [
+        'Toggle Overview',
+        'Cycle Applications',
+        'Show App Drawer',
+        'Switch Workspace',
+        'Show desktop'
+        ];
 
         // Disable four finger options for now :(
         this._horizontalFourSwitch.set_active(false);

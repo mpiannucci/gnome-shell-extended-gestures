@@ -142,6 +142,25 @@ const TouchpadGestureAction = new Lang.Class({
                 }
                 Main.wm._actionSwitchWorkspace(sender, dir);
                 break;
+            case 4:
+                const minimizedWindows = [];
+                const activeWorkspace = global.screen.get_active_workspace();
+                // loop through workspace windows
+                Main.layoutManager._getWindowActorsForWorkspace(activeWorkspace).forEach( windowActor => {
+                    const metaWindow = windowActor.get_meta_window();
+                    // avoid minimizing always on top windows (Nautilus desktop and gnome shell for example)
+                    if ( !metaWindow.is_on_all_workspaces() && metaWindow.showing_on_its_workspace()) {
+                        minimizedWindows.push(metaWindow);
+                        metaWindow.minimize();
+                    }
+                });
+                //stash windows or restore previous stash
+                if (minimizedWindows.length > 0) {
+                    activeWorkspace.stashedWindows = minimizedWindows;
+                } else if (activeWorkspace.stashedWindows != null) {
+                    activeWorkspace.stashedWindows.forEach( window => window.activate(window));
+                }
+                break;
             default:
                 break;
         }
@@ -191,4 +210,7 @@ function enable() {
 
 function disable() {
     gestureHandler._cleanup();
+    Main.wm._workspaceTracker._workspaces.forEach( ws => {
+        delete ws.stashedWindows;
+    });
 }
