@@ -91,7 +91,10 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         'Cycle Applications',
         'Show App Drawer',
         'Switch Workspace',
-        'Show desktop'
+        'Show desktop',
+        'Nothing',
+        'Next Workspace',
+        'Previous Workspace'
         ];
 
         // Disable four finger options for now :(

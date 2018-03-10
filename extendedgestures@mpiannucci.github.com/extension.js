@@ -161,6 +161,15 @@ const TouchpadGestureAction = new Lang.Class({
                     activeWorkspace.stashedWindows.forEach( window => window.activate(window));
                 }
                 break;
+            case 5:
+                // Nothing
+                break;
+            case 6:
+                Main.wm._actionSwitchWorkspace(sender, Meta.MotionDirection.UP);
+                break;
+            case 7:
+                Main.wm._actionSwitchWorkspace(sender, Meta.MotionDirection.DOWN);
+                break;
             default:
                 break;
         }

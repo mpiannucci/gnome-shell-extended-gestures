@@ -6,6 +6,8 @@
         <value value="3" nick="switch-workspace"/>
         <value value="4" nick="show-desktop"/>
         <value value="5" nick="nothing"/>
+        <value value="6" nick="next-workspace"/>
+        <value value="7" nick="previous-workspace"/>
     </enum>
     <schema id="org.gnome.shell.extensions.extendedgestures" path="/org/gnome/shell/extensions/extendedgestures/">
         <key name="left-three-swipes" type="b">
