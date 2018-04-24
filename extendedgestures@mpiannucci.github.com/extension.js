@@ -27,14 +27,7 @@ const TouchpadGestureAction = new Lang.Class({
         this._dx = 0;
         this._dy = 0;
 
-        this._leftThreeEnabled = schema.get_boolean('left-three-swipes');
-        this._leftThreeAction = schema.get_enum('left-three-action');
-        this._rightThreeEnabled = schema.get_boolean('right-three-swipes');
-        this._rightThreeAction = schema.get_enum('right-three-action');
-        this._upThreeEnabled = schema.get_boolean('up-three-swipes');
-        this._upThreeAction = schema.get_enum('up-three-action');
-        this._downThreeEnabled = schema.get_boolean('down-three-swipes');
-        this._downThreeAction = schema.get_enum('down-three-action');
+        this._updateSettings();
 
         this._gestureCallbackID = actor.connect('captured-event', Lang.bind(this, this._handleEvent));
         this._actionCallbackID = this.connect('activated', Lang.bind (this, this._doAction));
@@ -42,7 +35,6 @@ const TouchpadGestureAction = new Lang.Class({
     },
 
     _checkActivated: function(fingerCount) {
-        const MOTION_THRESHOLD = 50;
         const DIRECTION_LOOKUP = {
             0: Meta.MotionDirection.RIGHT,
             1: Meta.MotionDirection.UP,
@@ -51,8 +43,6 @@ const TouchpadGestureAction = new Lang.Class({
         };
 
         let magnitude = Math.sqrt(Math.pow(this._dy, 2) + Math.pow(this._dx, 2));
-        if (magnitude < MOTION_THRESHOLD)
-            return;
 
         let allowedModes = Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW;
 
@@ -67,7 +57,7 @@ const TouchpadGestureAction = new Lang.Class({
         }
         let dir = DIRECTION_LOOKUP[rounded_direction]
 
-        if (!this._checkSwipeValid(dir, fingerCount))
+        if (!this._checkSwipeValid(dir, fingerCount, magnitude))
             return;
 
         this.emit('activated', dir, fingerCount);
@@ -175,17 +165,19 @@ const TouchpadGestureAction = new Lang.Class({
         }
     },
 
-    _checkSwipeValid: function (dir, fingerCount) {
+    _checkSwipeValid: function (dir, fingerCount, motion) {
+        const MOTION_THRESHOLD = 50;
+
         if (fingerCount == 3) {
             switch (dir) {
                 case Meta.MotionDirection.LEFT:
-                    return this._leftThreeEnabled;
+                    return this._leftThreeEnabled && (motion > (50 - this._horizontalSensitivityAdjustment));
                 case Meta.MotionDirection.RIGHT:
-                    return this._rightThreeEnabled;
+                    return this._rightThreeEnabled && (motion > (50 - this._horizontalSensitivityAdjustment));
                 case Meta.MotionDirection.UP:
-                    return this._upThreeEnabled;
+                    return this._upThreeEnabled && (motion > (50 - this._verticalSensitivityAdjustment));
                 case Meta.MotionDirection.DOWN:
-                    return this._downThreeEnabled;
+                    return this._downThreeEnabled && (motion > (50 - this._verticalSensitivityAdjustment));
                 default:
                     break;
             }
@@ -203,6 +195,8 @@ const TouchpadGestureAction = new Lang.Class({
         this._upThreeAction = schema.get_enum('up-three-action');
         this._downThreeEnabled = schema.get_boolean('down-three-swipes');
         this._downThreeAction = schema.get_enum('down-three-action');
+        this._verticalSensitivityAdjustment = schema.get_int('vertical-sensitivity-adjustment');
+        this._horizontalSensitivityAdjustment = schema.get_int('horizontal-sensitivity-adjustment');
     },
 
     _cleanup: function() {
