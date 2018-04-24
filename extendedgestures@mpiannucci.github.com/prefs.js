@@ -81,8 +81,30 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         this._swipeOptionsGrid.attach(this._verticalFourSwitch, 1, 5, 1, 1);
         this._swipeOptionsGrid.attach(this._verticalFourCombo, 2, 5, 1, 1);
 
+        // The sensitivity options
+        this._sensitivityOptionsFrame = new Gtk.Frame();
+        this._sensitivityOptionsFrame.set_label("Sensitivity Options");
+        this._sensitivityOptionsGrid = new Gtk.Grid({
+            column_homogeneous: false,
+            column_spacing: 20
+        });
+        this._sensitivityOptionsFrame.add(this._sensitivityOptionsGrid);
+
+        // Vertical sensitivity
+        this._verticalSensitivityLabel = new Gtk.Label({label: "Vertical Sensitivity Adjustment"});
+        this._verticalSensitivitySpinButton = Gtk.SpinButton.new_with_range(-50, 50, 1);
+        this._sensitivityOptionsGrid.attach(this._verticalSensitivityLabel, 0, 0, 1, 1);
+        this._sensitivityOptionsGrid.attach(this._verticalSensitivitySpinButton, 1, 0, 1, 1);
+
+        // Horizontal sensitivity
+        this._horizontalSensitivityLabel = new Gtk.Label({label: "Horizontal Sensitivity Adjustment"});
+        this._horizontalSensitivitySpinButton = Gtk.SpinButton.new_with_range(-50, 50, 1);
+        this._sensitivityOptionsGrid.attach(this._horizontalSensitivityLabel, 0, 1, 1, 1);
+        this._sensitivityOptionsGrid.attach(this._horizontalSensitivitySpinButton, 1, 1, 1, 1);
+
         // Add everything to the main view
         this.add(this._swipeOptionsFrame);
+        this.add(this._sensitivityOptionsFrame);
     },
 
     _initUI: function() {
@@ -130,6 +152,10 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         this._downThreeCombo.set_active(schema.get_enum('down-three-action'));
         this._horizontalFourCombo.set_active(0);
         this._verticalFourCombo.set_active(3);
+
+        // Sensitivity options setup
+        schema.bind('vertical-sensitivity-adjustment', this._verticalSensitivitySpinButton, 'value', Gio.SettingsBindFlags.DEFAULT);
+        schema.bind('horizontal-sensitivity-adjustment', this._horizontalSensitivitySpinButton, 'value', Gio.SettingsBindFlags.DEFAULT);
     },
 
     _leftThreeComboChanged: function () {

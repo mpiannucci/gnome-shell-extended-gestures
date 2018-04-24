@@ -50,5 +50,15 @@
             <summary>3 Finger Down Vertical Swipe Action</summary>
             <description>The action to perform when a 3 finger down vertical swipe gesture is recognized</description>
         </key>
+        <key name="vertical-sensitivity-adjustment" type="i">
+            <default>0</default>
+            <summary>Vertical Sensitivity Adjustment</summary>
+            <description>An adjustment to the default sensitivity to customize the vertical gestures for different hardware</description>
+        </key>
+        <key name="horizontal-sensitivity-adjustment" type="i">
+            <default>0</default>
+            <summary>Horizontal Sensitivity Adjustment</summary>
+            <description>An adjustment to the default sensitivity to customize the horizontal gestures for different hardware</description>
+        </key>
     </schema>
 </schemalist>
