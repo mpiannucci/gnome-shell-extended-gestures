@@ -14,6 +14,10 @@ By defualt, GNOME uses `libinput` to detect touchpad gestures as they are perfor
 
 For now, it allows the user the configure three finger horizontal and vertical gestures to perform a choice of actions supplied through the extension settings in `gnome-tweak-tool`. It should work on most modern laptops with multitouch trackpads. It has been tested on many modern devices. Please see [hardware](hardware.md) for more information!.
 
+#### Adjusting the sensitivity
+
+There is now a setting for adjusting the sensitivity which helps expand the usefullness to more hardware. Using the settings dialog you can make the gestures more sensitive by increasing the value (>0) or less sensitive by decreasing the value (<0). Feel free to share the values that work for you in the [hardware](hardware.md) list. 
+
 ## Current Limitations
 
 Currently there are a few limitations so far that you should be aware of: 
