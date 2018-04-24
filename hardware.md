@@ -2,6 +2,8 @@
 
 The following devices have been **confirmed** as working with this extension. Many many more will definitely work, I just have not actually heard confirmed reports yet. Please let me know if this extensions works on your device and we can add it to the list! Also let me know if you have issues witha  device that is listed as **yes** below so we can figure it out
 
+Please feel free to list the sensitivty settings you found worked best for your device here for others to try and play with. 
+
 | Device | Working? | Sensivity tweak? (value) |
 | --- | --- | --- |
 | Macbook Pro 2013 11,1 | Yes | 0 |
