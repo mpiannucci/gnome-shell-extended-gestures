@@ -11,6 +11,7 @@ Please feel free to list the sensitivty settings you found worked best for your 
 | Asus Zenbook UX501VW | Yes | |
 | Dell XPS 13 (Infinity edge devices and newer) | Yes | |
 | Dell XPS 15 (Infinity edge devices and newer) | Yes | |
+| Dell Latitude 7285 | Yes | |
 | Logitech T650 Touchpad (FW-Version: 041.001.00038) | Yes | |
 | ThinkPad Edge E40 | No | |
 | ThinkPad X1 Carbon & Yoga 260 (2016) | Yes (but needs better sensitivity tweaks) | |
