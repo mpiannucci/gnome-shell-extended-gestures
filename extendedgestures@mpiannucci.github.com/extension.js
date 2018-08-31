@@ -130,6 +130,11 @@ const TouchpadGestureAction = new Lang.Class({
                 } else if (dir == Meta.MotionDirection.RIGHT) {
                     dir = Meta.MotionDirection.DOWN;
                 }
+                if (!Main.wm._switchData) {
+                  let workspaceManager = global.workspace_manager;
+                  let activeWorkspace = workspaceManager.get_active_workspace();
+                  Main.wm._prepareWorkspaceSwitch(activeWorkspace.index(), -1);
+                }
                 Main.wm._actionSwitchWorkspace(sender, dir);
                 break;
             case 4:
