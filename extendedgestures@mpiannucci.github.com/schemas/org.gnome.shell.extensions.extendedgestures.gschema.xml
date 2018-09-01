@@ -8,6 +8,7 @@
         <value value="5" nick="nothing"/>
         <value value="6" nick="next-workspace"/>
         <value value="7" nick="previous-workspace"/>
+        <value value="8" nick="previous-app"/>
     </enum>
     <schema id="org.gnome.shell.extensions.extendedgestures" path="/org/gnome/shell/extensions/extendedgestures/">
         <key name="left-three-swipes" type="b">

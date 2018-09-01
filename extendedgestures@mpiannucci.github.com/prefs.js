@@ -35,7 +35,7 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
             column_spacing: 20
         });
         this._swipeOptionsFrame.add(this._swipeOptionsGrid);
-        
+
         // The swipe options
         // Three finger horizontal
         this._leftThreeLabel = new Gtk.Label({label: "3 Finger Left Horizontal Gestures"});
@@ -116,7 +116,8 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         'Show desktop',
         'Nothing',
         'Next Workspace',
-        'Previous Workspace'
+        'Previous Workspace',
+        'Last Application'
         ];
 
         // Disable four finger options for now :(
@@ -160,11 +161,11 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
 
     _leftThreeComboChanged: function () {
         schema.set_enum('left-three-action', this._leftThreeCombo.get_active());
-    }, 
+    },
 
     _rightThreeComboChanged: function () {
         schema.set_enum('right-three-action', this._rightThreeCombo.get_active());
-    }, 
+    },
 
     _upThreeComboChanged: function () {
         schema.set_enum('up-three-action', this._upThreeCombo.get_active());

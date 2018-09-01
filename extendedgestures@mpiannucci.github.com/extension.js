@@ -167,6 +167,9 @@ const TouchpadGestureAction = new Lang.Class({
             case 7:
                 this._switchWorkspace(sender, Meta.MotionDirection.DOWN);
                 break;
+            case 8:
+                this._switchToLastApp();
+                break;
             default:
                 break;
         }
@@ -180,6 +183,30 @@ const TouchpadGestureAction = new Lang.Class({
             Main.wm._prepareWorkspaceSwitch(activeWorkspace.index(), -1);
         }
         Main.wm._actionSwitchWorkspace(sender, dir);
+    },
+
+    _switchToLastApp() {
+        let windows = global.get_window_actors().filter(actor => {
+            let win = actor.metaWindow;
+            // gnome-shell >= 3.30 use workspace_manager instead of screen
+            const activeWorkspace = versionSmaller330?
+                global.screen.get_active_workspace():global.workspace_manager.get_active_workspace();
+            return (!win.is_override_redirect() &&
+                    win.located_on_workspace(activeWorkspace));
+        });
+        if (windows.length == 0)
+            return;
+        let focusWindow = global.display.focus_window;
+        let nextWindow;
+        if (focusWindow == null)
+            nextWindow = windows[0].metaWindow;
+        else {
+            let index = Main.wm._lookupIndex (windows, focusWindow) - 1;
+            if (index < 0)
+                index = windows.length - 1;
+            nextWindow = windows[index].metaWindow;
+        }
+        Main.activateWindow(nextWindow);
     },
 
     _checkSwipeValid: function (dir, fingerCount, motion) {
