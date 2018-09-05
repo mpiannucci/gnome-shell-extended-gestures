@@ -1,9 +1,11 @@
 const Clutter = imports.gi.Clutter;
+const Config = imports.misc.config;
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
 const Signals = imports.signals;
+const Utils = imports.misc.extensionUtils;
 
 const Gettext = imports.gettext.domain('extendedgestures');
 const _ = Gettext.gettext;
@@ -15,6 +17,9 @@ let gestureHandler = null;
 
 // Our settings
 let schema = null;
+
+// Compatability settings
+let versionSmaller330 = Utils.versionCheck(["3.26", "3.28"], Config.PACKAGE_VERSION);
 
 function init() {
     schema = Convenience.getSettings();
@@ -120,8 +125,8 @@ const TouchpadGestureAction = new Lang.Class({
                 Main.wm._switchApp();
                 break;
             case 2:
-                Main.overview.toggle(); 
-                if (Main.overview._shown) 
+                Main.overview.toggle();
+                if (Main.overview._shown)
                     Main.overview.viewSelector._toggleAppsPage();
                 break;
             case 3:
@@ -130,16 +135,13 @@ const TouchpadGestureAction = new Lang.Class({
                 } else if (dir == Meta.MotionDirection.RIGHT) {
                     dir = Meta.MotionDirection.DOWN;
                 }
-                if (!Main.wm._switchData) {
-                  let workspaceManager = global.workspace_manager;
-                  let activeWorkspace = workspaceManager.get_active_workspace();
-                  Main.wm._prepareWorkspaceSwitch(activeWorkspace.index(), -1);
-                }
-                Main.wm._actionSwitchWorkspace(sender, dir);
+                this._switchWorkspace(sender, dir);
                 break;
             case 4:
                 const minimizedWindows = [];
-                const activeWorkspace = global.screen.get_active_workspace();
+                // gnome-shell >= 3.30 use workspace_manager instead of screen
+                const activeWorkspace = versionSmaller330?
+                    global.screen.get_active_workspace():global.workspace_manager.get_active_workspace();
                 // loop through workspace windows
                 Main.layoutManager._getWindowActorsForWorkspace(activeWorkspace).forEach( windowActor => {
                     const metaWindow = windowActor.get_meta_window();
@@ -160,14 +162,24 @@ const TouchpadGestureAction = new Lang.Class({
                 // Nothing
                 break;
             case 6:
-                Main.wm._actionSwitchWorkspace(sender, Meta.MotionDirection.UP);
+                this._switchWorkspace(sender, Meta.MotionDirection.UP);
                 break;
             case 7:
-                Main.wm._actionSwitchWorkspace(sender, Meta.MotionDirection.DOWN);
+                this._switchWorkspace(sender, Meta.MotionDirection.DOWN);
                 break;
             default:
                 break;
         }
+    },
+
+    _switchWorkspace: function (sender, dir) {
+        // fix for gnome-shell >= 3.30
+        if (!versionSmaller330) {
+            let workspaceManager = global.workspace_manager;
+            let activeWorkspace = workspaceManager.get_active_workspace();
+            Main.wm._prepareWorkspaceSwitch(activeWorkspace.index(), -1);
+        }
+        Main.wm._actionSwitchWorkspace(sender, dir);
     },
 
     _checkSwipeValid: function (dir, fingerCount, motion) {
