@@ -37,6 +37,10 @@ const TouchpadGestureAction = new Lang.Class({
         this._gestureCallbackID = actor.connect('captured-event', Lang.bind(this, this._handleEvent));
         this._actionCallbackID = this.connect('activated', Lang.bind (this, this._doAction));
         this._updateSettingsCallbackID = schema.connect('changed', Lang.bind(this, this._updateSettings));
+
+        // A virtual keyboard device is needed to trigger custom key combinations
+        let deviceManager = Clutter.DeviceManager.get_default();
+        this._virtualDevice = deviceManager.create_virtual_device(Clutter.InputDeviceType.KEYBOARD_DEVICE);
     },
 
     _checkActivated: function(fingerCount) {
@@ -93,20 +97,33 @@ const TouchpadGestureAction = new Lang.Class({
 
     _doAction: function (sender, dir, fingerCount) {
         let action = null;
+        let keys = [];
 
         if (fingerCount == 3) {
             switch (dir) {
                 case Meta.MotionDirection.LEFT:
                     action = this._leftThreeAction;
+                    if (action == 8) {
+                        keys = this._leftThreeKeys;
+                    }
                     break;
                 case Meta.MotionDirection.RIGHT:
                     action = this._rightThreeAction;
+                    if (action == 8) {
+                        keys = this._rightThreeKeys;
+                    }
                     break;
                 case Meta.MotionDirection.UP:
                     action = this._upThreeAction;
+                    if (action == 8) {
+                        keys = this._upThreeKeys;
+                    }
                     break;
                 case Meta.MotionDirection.DOWN:
                     action = this._downThreeAction;
+                    if (action == 8) {
+                        keys = this._downThreeKeys;
+                    }
                     break;
                 default:
                     break;
@@ -167,6 +184,10 @@ const TouchpadGestureAction = new Lang.Class({
             case 7:
                 this._switchWorkspace(sender, Meta.MotionDirection.DOWN);
                 break;
+            case 8:
+                // TODO: Get the key comands from the settings and send them... Have to Map to Clutter keys??
+                //this._sendKeyEvent(keys)
+                break;
             default:
                 break;
         }
@@ -180,6 +201,12 @@ const TouchpadGestureAction = new Lang.Class({
             Main.wm._prepareWorkspaceSwitch(activeWorkspace.index(), -1);
         }
         Main.wm._actionSwitchWorkspace(sender, dir);
+    },
+
+    _sendKeyEvent: function (keys) {
+        let currentTime = Clutter.get_current_event_time();
+        keys.forEach(key => this._virtualDevice.notify_keyval(currentTime, key, Clutter.KeyState.PRESSED));
+        keys.forEach(key => this._virtualDevice.notify_keyval(currentTime, key, Clutter.KeyState.RELEASED));
     },
 
     _checkSwipeValid: function (dir, fingerCount, motion) {
@@ -206,12 +233,16 @@ const TouchpadGestureAction = new Lang.Class({
     _updateSettings: function () {
         this._leftThreeEnabled = schema.get_boolean('left-three-swipes');
         this._leftThreeAction = schema.get_enum('left-three-action');
+        this._leftThreeKeys = schema.get_string('left-three-keys').split(',');
         this._rightThreeEnabled = schema.get_boolean('right-three-swipes');
         this._rightThreeAction = schema.get_enum('right-three-action');
+        this._rightThreeKeys = schema.get_string('right-three-keys').split(',');
         this._upThreeEnabled = schema.get_boolean('up-three-swipes');
         this._upThreeAction = schema.get_enum('up-three-action');
+        this._upThreeKeys = schema.get_string('up-three-keys').split(',');
         this._downThreeEnabled = schema.get_boolean('down-three-swipes');
         this._downThreeAction = schema.get_enum('down-three-action');
+        this._downThreeKeys = schema.get_string('down-three-keys').split(',');
         this._verticalSensitivityAdjustment = schema.get_int('vertical-sensitivity-adjustment');
         this._horizontalSensitivityAdjustment = schema.get_int('horizontal-sensitivity-adjustment');
     },

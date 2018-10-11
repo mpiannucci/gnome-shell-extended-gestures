@@ -8,6 +8,7 @@
         <value value="5" nick="nothing"/>
         <value value="6" nick="next-workspace"/>
         <value value="7" nick="previous-workspace"/>
+        <value value="8" nick="custom">
     </enum>
     <schema id="org.gnome.shell.extensions.extendedgestures" path="/org/gnome/shell/extensions/extendedgestures/">
         <key name="left-three-swipes" type="b">
@@ -20,6 +21,11 @@
             <summary>3 Finger Left Horizontal Swipe Action</summary>
             <description>The action to perform when a 3 finger left horizontal swipe gesture is recognized</description>
         </key>
+        <key name="left-three-keys" type="s">
+            <default>''</default>
+            <summary>3 Finger Left Horizontal Key Command Trigger</summary>
+            <description>The action to perform when a 3 finger left horizontal swipe gesture is recognized and custom key command is the selected action</description>
+        </key>
         <key name="right-three-swipes" type="b">
             <default>true</default>
             <summary>3 Finger Right Horizontal Swipes</summary>
@@ -29,6 +35,12 @@
             <default>'overview'</default>
             <summary>3 Finger Right Horizontal Swipe Action</summary>
             <description>The action to perform when a 3 finger right horizontal swipe gesture is recognized</description>
+        </key>
+        </key>
+        <key name="right-three-keys" type="s">
+            <default>''</default>
+            <summary>3 Finger Right Horizontal Key Command Trigger</summary>
+            <description>The action to perform when a 3 finger right horizontal swipe gesture is recognized and custom key command is the selected action</description>
         </key>
         <key name="up-three-swipes" type="b">
             <default>true</default>
@@ -40,6 +52,12 @@
             <summary>3 Finger Up Vertical Swipe Action</summary>
             <description>The action to perform when a 3 finger up vertical swipe gesture is recognized</description>
         </key>
+        </key>
+        <key name="up-three-keys" type="s">
+            <default>''</default>
+            <summary>3 Finger Up Horizontal Key Command Trigger</summary>
+            <description>The action to perform when a 3 finger up vertical swipe gesture is recognized and custom key command is the selected action</description>
+        </key>
         <key name="down-three-swipes" type="b">
             <default>true</default>
             <summary>3 Finger Down Vertical Swipes</summary>
@@ -49,6 +67,12 @@
             <default>'switch-workspace'</default>
             <summary>3 Finger Down Vertical Swipe Action</summary>
             <description>The action to perform when a 3 finger down vertical swipe gesture is recognized</description>
+        </key>
+        </key>
+        <key name="down-three-keys" type="s">
+            <default>''</default>
+            <summary>3 Finger Down Horizontal Key Command Trigger</summary>
+            <description>The action to perform when a 3 finger down vertical swipe gesture is recognized and custom key command is the selected action</description>
         </key>
         <key name="vertical-sensitivity-adjustment" type="i">
             <default>0</default>
