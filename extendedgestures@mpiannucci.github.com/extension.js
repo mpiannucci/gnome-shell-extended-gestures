@@ -215,13 +215,13 @@ const TouchpadGestureAction = new Lang.Class({
         if (fingerCount == 3) {
             switch (dir) {
                 case Meta.MotionDirection.LEFT:
-                    return this._leftThreeEnabled && (motion > (50 - this._horizontalSensitivityAdjustment));
+                    return this._leftThreeEnabled && (motion > (MOTION_THRESHOLD - this._horizontalSensitivityAdjustment));
                 case Meta.MotionDirection.RIGHT:
-                    return this._rightThreeEnabled && (motion > (50 - this._horizontalSensitivityAdjustment));
+                    return this._rightThreeEnabled && (motion > (MOTION_THRESHOLD - this._horizontalSensitivityAdjustment));
                 case Meta.MotionDirection.UP:
-                    return this._upThreeEnabled && (motion > (50 - this._verticalSensitivityAdjustment));
+                    return this._upThreeEnabled && (motion > (MOTION_THRESHOLD - this._verticalSensitivityAdjustment));
                 case Meta.MotionDirection.DOWN:
-                    return this._downThreeEnabled && (motion > (50 - this._verticalSensitivityAdjustment));
+                    return this._downThreeEnabled && (motion > (MOTION_THRESHOLD - this._verticalSensitivityAdjustment));
                 default:
                     break;
             }

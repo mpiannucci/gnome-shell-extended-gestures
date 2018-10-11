@@ -92,13 +92,13 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
 
         // Vertical sensitivity
         this._verticalSensitivityLabel = new Gtk.Label({label: "Vertical Sensitivity Adjustment"});
-        this._verticalSensitivitySpinButton = Gtk.SpinButton.new_with_range(-50, 50, 1);
+        this._verticalSensitivitySpinButton = Gtk.SpinButton.new_with_range(-100, 100, 1);
         this._sensitivityOptionsGrid.attach(this._verticalSensitivityLabel, 0, 0, 1, 1);
         this._sensitivityOptionsGrid.attach(this._verticalSensitivitySpinButton, 1, 0, 1, 1);
 
         // Horizontal sensitivity
         this._horizontalSensitivityLabel = new Gtk.Label({label: "Horizontal Sensitivity Adjustment"});
-        this._horizontalSensitivitySpinButton = Gtk.SpinButton.new_with_range(-50, 50, 1);
+        this._horizontalSensitivitySpinButton = Gtk.SpinButton.new_with_range(-100, 100, 1);
         this._sensitivityOptionsGrid.attach(this._horizontalSensitivityLabel, 0, 1, 1, 1);
         this._sensitivityOptionsGrid.attach(this._horizontalSensitivitySpinButton, 1, 1, 1, 1);
 
