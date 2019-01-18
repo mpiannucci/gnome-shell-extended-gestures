@@ -34,7 +34,7 @@ const TouchpadGestureAction = new Lang.Class({
 
         this._updateSettings();
 
-        this._gestureCallbackID = actor.connect('captured-event', Lang.bind(this, this._handleEvent));
+        this._gestureCallbackID = actor.connect('captured-event::nonmotion', Lang.bind(this, this._handleEvent));
         this._actionCallbackID = this.connect('activated', Lang.bind (this, this._doAction));
         this._updateSettingsCallbackID = schema.connect('changed', Lang.bind(this, this._updateSettings));
     },
