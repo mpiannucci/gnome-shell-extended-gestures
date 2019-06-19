@@ -37,6 +37,9 @@ const TouchpadGestureAction = new Lang.Class({
         this._gestureCallbackID = actor.connect('captured-event', Lang.bind(this, this._handleEvent));
         this._actionCallbackID = this.connect('activated', Lang.bind (this, this._doAction));
         this._updateSettingsCallbackID = schema.connect('changed', Lang.bind(this, this._updateSettings));
+
+        let deviceManager = Clutter.DeviceManager.get_default();
+        this._virtualDevice = deviceManager.create_virtual_device(Clutter.InputDeviceType.KEYBOARD_DEVICE);
     },
 
     _checkActivated: function(fingerCount) {
@@ -167,6 +170,12 @@ const TouchpadGestureAction = new Lang.Class({
             case 7:
                 this._switchWorkspace(sender, Meta.MotionDirection.DOWN);
                 break;
+            case 8:
+                this._sendKeyEvent(Clutter.KEY_Alt_L, Clutter.KEY_Right);
+                break;
+            case 9:
+                this._sendKeyEvent(Clutter.KEY_Alt_L, Clutter.KEY_Left);
+                break;
             default:
                 break;
         }
@@ -180,6 +189,12 @@ const TouchpadGestureAction = new Lang.Class({
             Main.wm._prepareWorkspaceSwitch(activeWorkspace.index(), -1);
         }
         Main.wm._actionSwitchWorkspace(sender, dir);
+    },
+
+    _sendKeyEvent: function (...keys) {
+        let currentTime = Clutter.get_current_event_time();
+        keys.forEach(key => this._virtualDevice.notify_keyval(currentTime, key, Clutter.KeyState.PRESSED));
+        keys.forEach(key => this._virtualDevice.notify_keyval(currentTime, key, Clutter.KeyState.RELEASED));
     },
 
     _checkSwipeValid: function (dir, fingerCount, motion) {
