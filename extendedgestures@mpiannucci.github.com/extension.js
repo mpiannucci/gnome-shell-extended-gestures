@@ -176,6 +176,9 @@ const TouchpadGestureAction = new Lang.Class({
             case 9:
                 this._sendKeyEvent(Clutter.KEY_Alt_L, Clutter.KEY_Left);
                 break;
+            case 10:
+                let selector = Main.overview.viewSelector;
+                selector._showAppsButton.checked ? Main.overview.toggle() : selector._toggleAppsPage();
             default:
                 break;
         }
