@@ -38,8 +38,15 @@ const TouchpadGestureAction = new Lang.Class({
         this._actionCallbackID = this.connect('activated', Lang.bind (this, this._doAction));
         this._updateSettingsCallbackID = schema.connect('changed', Lang.bind(this, this._updateSettings));
 
-        let deviceManager = Clutter.DeviceManager.get_default();
-        this._virtualDevice = deviceManager.create_virtual_device(Clutter.InputDeviceType.KEYBOARD_DEVICE);
+        if (Clutter.DeviceManager) {
+            // gnome-shell <= 3.34 uses a device manager
+            let deviceManager = Clutter.DeviceManager.get_default();
+            this._virtualDevice = deviceManager.create_virtual_device(Clutter.InputDeviceType.KEYBOARD_DEVICE);
+        } else {
+            // gnome-shell >= 3.36 uses a seat
+            let seat = Clutter.get_default_backend().get_default_seat();
+            this._virtualDevice = seat.create_virtual_device(Clutter.InputDeviceType.KEYBOARD_DEVICE);
+        }
     },
 
     _checkActivated: function(fingerCount) {
