@@ -196,9 +196,12 @@ const TouchpadGestureAction = new Lang.Class({
         if (!versionSmaller330) {
             let workspaceManager = global.workspace_manager;
             let activeWorkspace = workspaceManager.get_active_workspace();
+            let newWs = activeWorkspace.get_neighbor(dir);
             Main.wm._prepareWorkspaceSwitch(activeWorkspace.index(), -1);
+            Main.wm.actionMoveWorkspace(newWs);
+        } else {
+            Main.wm._actionSwitchWorkspace(sender, dir);
         }
-        Main.wm._actionSwitchWorkspace(sender, dir);
     },
 
     _sendKeyEvent: function (...keys) {
