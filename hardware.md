@@ -18,3 +18,4 @@ Please feel free to list the sensitivty settings you found worked best for your 
 | ThinkPad X1 Carbon & Yoga 260 (2016) | Yes (but needs better sensitivity tweaks) | |
 | Wacom Touch Tablet | No | |
 | HP Elitebook 840 G5 | Yes | |
+| Lenovo Legion Y530 | No | |
