@@ -19,4 +19,4 @@ Please feel free to list the sensitivty settings you found worked best for your 
 | Wacom Touch Tablet | No | |
 | HP Elitebook 840 G5 | Yes | |
 | Lenovo Legion Y530 | No | |
-| Lenovo Thinkpad X280 | Yes | 0, 0  |
+| Lenovo Thinkpad X280 | Yes | 0, 0 |
