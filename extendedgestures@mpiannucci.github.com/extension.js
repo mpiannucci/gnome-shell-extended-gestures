@@ -186,6 +186,16 @@ const TouchpadGestureAction = new Lang.Class({
             case 10:
                 let selector = Main.overview.viewSelector;
                 selector._showAppsButton.checked ? Main.overview.toggle() : selector._toggleAppsPage();
+                break;
+            case 11:
+                const focusedWindow = global.display.get_focus_window();
+                if (focusedWindow.fullscreen) {
+                    focusedWindow.unmake_fullscreen();
+                }
+                else {
+                    focusedWindow.make_fullscreen();
+                }
+                break;
             default:
                 break;
         }

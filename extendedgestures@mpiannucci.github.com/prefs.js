@@ -126,7 +126,8 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         'Previous Workspace',
         'Go Forward',
         'Go Back',
-        'Show App Drawer (unanimated)'
+        'Show App Drawer (unanimated)',
+        'Toggle Fullscreen',
         ];
 
         // Disable four finger options for now :(
