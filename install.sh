@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 if [ ! -d ~/.local/share/gnome-shell/extensions ]; then
     mkdir ~/.local/share/gnome-shell/extensions
 fi
