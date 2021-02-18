@@ -178,10 +178,10 @@ const TouchpadGestureAction = new Lang.Class({
                 this._switchWorkspace(sender, Meta.MotionDirection.DOWN);
                 break;
             case 8:
-                this._sendKeyEvent(Clutter.KEY_Alt_L, Clutter.KEY_Right);
+                this._sendKeyEvent(Clutter.KEY_Forward);
                 break;
             case 9:
-                this._sendKeyEvent(Clutter.KEY_Alt_L, Clutter.KEY_Left);
+                this._sendKeyEvent(Clutter.KEY_Back);
                 break;
             case 10:
                 let selector = Main.overview.viewSelector;
