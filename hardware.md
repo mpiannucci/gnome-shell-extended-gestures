@@ -20,3 +20,4 @@ Please feel free to list the sensitivty settings you found worked best for your 
 | HP Elitebook 840 G5 | Yes | |
 | Lenovo Legion Y530 | No | |
 | Lenovo Thinkpad X280 | Yes | 0, 0 |
+| System76 Galago Pro 2018 (Clevo N131WU) | Yes | Seems to need >0 |
