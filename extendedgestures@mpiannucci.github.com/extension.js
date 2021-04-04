@@ -206,10 +206,12 @@ const TouchpadGestureAction = new Lang.Class({
                 break;
             case 14:
                 //close tab
-                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.W,);
+                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_W,);
+                break;
             case 15:
                 //reopen tab
-                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Shift_L,Clutter.T,);
+                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Shift_L,Clutter.KEY_T,);
+                break;
             default:
                 break;
         }
@@ -231,6 +233,7 @@ const TouchpadGestureAction = new Lang.Class({
     _sendKeyEvent: function (...keys) {
         let currentTime = Clutter.get_current_event_time();
         keys.forEach(key => this._virtualDevice.notify_keyval(currentTime, key, Clutter.KeyState.PRESSED));
+        keys.reverse();
         keys.forEach(key => this._virtualDevice.notify_keyval(currentTime, key, Clutter.KeyState.RELEASED));
     },
 
