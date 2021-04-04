@@ -129,7 +129,9 @@ const ExtendedGesturesSettingsWidget = new GObject.Class({
         'Show App Drawer (unanimated)',
         'Toggle Fullscreen',
         'Previous Tab',
-        'Next Tab'
+        'Next Tab',
+        'Close Tab',
+        'Restore Closed Tab'
         ];
 
         // Disable four finger options for now :(
