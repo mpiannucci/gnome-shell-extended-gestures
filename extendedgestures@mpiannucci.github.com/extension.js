@@ -196,6 +196,12 @@ const TouchpadGestureAction = new Lang.Class({
                     focusedWindow.make_fullscreen();
                 }
                 break;
+            case 12:
+                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Tab,);
+                break;
+            case 13:
+                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Tab,);
+                break;
             default:
                 break;
         }
