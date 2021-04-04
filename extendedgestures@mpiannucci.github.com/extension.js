@@ -198,7 +198,7 @@ const TouchpadGestureAction = new Lang.Class({
                 break;
             case 12:
                 //prev tab
-                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.Key_Shift_L,Clutter.KEY_Tab,);
+                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Shift_L,Clutter.KEY_Tab,);
                 break;
             case 13:
                 //next tab
