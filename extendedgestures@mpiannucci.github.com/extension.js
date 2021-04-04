@@ -198,11 +198,11 @@ const TouchpadGestureAction = new Lang.Class({
                 break;
             case 12:
                 //prev tab
-                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Shift_L,Clutter.KEY_Tab,);
+                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Page_Up);
                 break;
             case 13:
                 //next tab
-                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Tab,);
+                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Page_Down);
                 break;
             case 14:
                 //close tab
