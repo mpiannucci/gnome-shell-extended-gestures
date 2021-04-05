@@ -71,7 +71,7 @@ const TouchpadGestureAction = new Lang.Class({
             rounded_direction = 2;
         }
         let dir = DIRECTION_LOOKUP[rounded_direction]
-
+        // Main.notify('test','direction '+rounded_direction+' dy,dx='+ this._dy+' ,'+this._dx);
         if (!this._checkSwipeValid(dir, fingerCount, magnitude))
             return;
 
@@ -87,9 +87,11 @@ const TouchpadGestureAction = new Lang.Class({
 
         if (event.get_gesture_phase() == Clutter.TouchpadGesturePhase.UPDATE) {
             let [dx, dy] = event.get_gesture_motion_delta();
-
+            // when natural scrolling is enabled 
+            // dy is reversed
             this._dx += dx;
             this._dy += dy;
+            // Main.notify('increment','dy,dx='+ dy+' ,'+dx)
         } else {
             if (event.get_gesture_phase() == Clutter.TouchpadGesturePhase.END)
                 this._checkActivated(event.get_touchpad_gesture_finger_count());
@@ -196,6 +198,22 @@ const TouchpadGestureAction = new Lang.Class({
                     focusedWindow.make_fullscreen();
                 }
                 break;
+            case 12:
+                //prev tab
+                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Page_Up);
+                break;
+            case 13:
+                //next tab
+                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Page_Down);
+                break;
+            case 14:
+                //close tab
+                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_W + 32);
+                break;
+            case 15:
+                //reopen tab
+                this._sendKeyEvent(Clutter.KEY_Control_L,Clutter.KEY_Shift_L,Clutter.KEY_T + 32);
+                break;
             default:
                 break;
         }
@@ -217,6 +235,7 @@ const TouchpadGestureAction = new Lang.Class({
     _sendKeyEvent: function (...keys) {
         let currentTime = Clutter.get_current_event_time();
         keys.forEach(key => this._virtualDevice.notify_keyval(currentTime, key, Clutter.KeyState.PRESSED));
+        keys.reverse();
         keys.forEach(key => this._virtualDevice.notify_keyval(currentTime, key, Clutter.KeyState.RELEASED));
     },
 
