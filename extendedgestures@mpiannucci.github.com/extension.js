@@ -71,7 +71,7 @@ const TouchpadGestureAction = new Lang.Class({
             rounded_direction = 2;
         }
         let dir = DIRECTION_LOOKUP[rounded_direction]
-
+        // Main.notify('test','direction '+rounded_direction+' dy,dx='+ this._dy+' ,'+this._dx);
         if (!this._checkSwipeValid(dir, fingerCount, magnitude))
             return;
 
@@ -87,9 +87,11 @@ const TouchpadGestureAction = new Lang.Class({
 
         if (event.get_gesture_phase() == Clutter.TouchpadGesturePhase.UPDATE) {
             let [dx, dy] = event.get_gesture_motion_delta();
-
+            // when natural scrolling is enabled 
+            // dy is reversed
             this._dx += dx;
             this._dy += dy;
+            // Main.notify('increment','dy,dx='+ dy+' ,'+dx)
         } else {
             if (event.get_gesture_phase() == Clutter.TouchpadGesturePhase.END)
                 this._checkActivated(event.get_touchpad_gesture_finger_count());
